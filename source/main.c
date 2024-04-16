@@ -38,7 +38,7 @@ int minirt(t_data *data)
       r = (int)(255.999 * (double)(i) / (WIDTH - 1));
       g = (int)(255.999 * (double)(j) / (HEIGHT - 1));
       b = (int)(255.999 * 0.0);
-      mlx_put_pixel(data->img, i, j, (r << 24) | (g << 16) | (b << 8) | 255);
+      mlx_put_pixel(data->img, i, j, calc_color(r, g, b, 255));
       i++;
     }
     j++;
@@ -51,8 +51,6 @@ int	main(void)
   t_data  *data;
 
   data = init_data();
-  if (!data)
-    return (EXIT_FAILURE);
   if (minirt(data) != SUCCESS)
     return (EXIT_FAILURE);
   mlx_loop_hook(data->win, hook, data);
