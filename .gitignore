@@ -1,2 +1,9 @@
 source/.DS_Store
 .DS_Store
+.cache/clangd/index
+libraries/libft/obj
+libraries/libft/libft.a
+libraries/mlx42/build/CMakeFiles
+libraries/mlx42/build
+obj/source
+minirt

@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "minirt.h"
 
-void	throw_error(t_env *env)
+void	throw_error(void)
 {
 	ft_putstr_fd("Error\n", 1);
-	free_env(env);
+	// free_env(env);
 	exit(EXIT_FAILURE);
 }
 
@@ -44,32 +44,46 @@ void	throw_error(t_env *env)
 // 		rotate(env, -0.01);
 // }
 
-int	main(int argc, char **argv)
+int minirt(mlx_image_t *img)
+{
+  int i;
+  int j;
+  int r;
+  int g;
+  int b;
+
+  j = 0;
+  while (j < HEIGHT)
+  {
+    i = 0;
+    while (i < WIDTH)
+    {
+      r = (int)(255.999 * (double)(i) / (WIDTH - 1));
+      g = (int)(255.999 * (double)(j) / (HEIGHT - 1));
+      b = (int)(255.999 * 0.0);
+      mlx_put_pixel(img, i, j, (r << 24) | (g << 16) | (b << 8) | 255);
+      i++;
+    }
+    j++;
+  }
+  return (SUCCESS);
+}
+
+int	main(void)
 {
 	mlx_t		*window;
 	mlx_image_t	*img;
-	t_env		*env;
 
-	if (argc == 2 && WIDTH > 50 && HEIGHT > 50)
-	{
-		window = mlx_init(WIDTH, HEIGHT, "fdf", false);
-		if (!window)
-			throw_error(0);
-		img = mlx_new_image(window, WIDTH, HEIGHT);
-		if (!img || (mlx_image_to_window(window, img, 0, 0) < 0))
-			throw_error(0);
-		env = init_env(window, img);
-		if (!env)
-			throw_error(env);
-		if (!load_map(env, argv[1]))
-			throw_error(env);
-		if (!plot_map(env))
-			throw_error(env);
-		mlx_loop_hook(window, hook, env);
-		mlx_loop(window);
-		free_env(env);
-	}
-	else
-		throw_error(0);
-	return (0);
+  window = mlx_init(WIDTH, HEIGHT, "miniRT", false);
+  if (!window)
+    throw_error();
+  img = mlx_new_image(window, WIDTH, HEIGHT);
+  if (!img || (mlx_image_to_window(window, img, 0, 0) < 0))
+    throw_error();
+  if (minirt(img) != SUCCESS)
+    return (EXIT_FAILURE);
+  // mlx_loop_hook(window, hook, env);
+  mlx_loop(window);
+  // free_env(env);
+	return (EXIT_SUCCESS);
 }

@@ -1,0 +1,27 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wextra",
+      "-Wall",
+      "-Werror",
+      "-Wunreachable-code",
+      "-Ofast",
+      "-g",
+      "-O0",
+      "-c",
+      "-I",
+      "./include",
+      "-I",
+      "./libraries/mlx42/include",
+      "-I",
+      "./libraries/libft",
+      "-o",
+      "obj/source/main.o",
+      "source/main.c"
+    ],
+    "directory": "/Users/louis.demetz/code/minirt",
+    "file": "/Users/louis.demetz/code/minirt/source/main.c",
+    "output": "/Users/louis.demetz/code/minirt/obj/source/main.o"
+  }
+]
