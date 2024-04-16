@@ -10,12 +10,22 @@
 
 #include "libft.h"
 #include "MLX42/MLX42.h"
+#include <math.h>
 
 typedef struct s_data
 {
   mlx_t       *win;
   mlx_image_t *img;
 } t_data;
+
+typedef struct s_vec
+{
+  double x;
+  double y;
+  double z;
+} t_vec;
+
+// vector operations
 
 // utils
 t_data *init_data(void);
