@@ -17,11 +17,36 @@
       "-I",
       "./libraries/libft",
       "-o",
-      "obj/source/main.o",
-      "source/main.c"
+      "obj/source/free.o",
+      "source/free.c"
     ],
     "directory": "/Users/louis.demetz/code/minirt",
-    "file": "/Users/louis.demetz/code/minirt/source/main.c",
-    "output": "/Users/louis.demetz/code/minirt/obj/source/main.o"
+    "file": "/Users/louis.demetz/code/minirt/source/free.c",
+    "output": "/Users/louis.demetz/code/minirt/obj/source/free.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wextra",
+      "-Wall",
+      "-Werror",
+      "-Wunreachable-code",
+      "-Ofast",
+      "-g",
+      "-O0",
+      "-c",
+      "-I",
+      "./include",
+      "-I",
+      "./libraries/mlx42/include",
+      "-I",
+      "./libraries/libft",
+      "-o",
+      "obj/source/init.o",
+      "source/init.c"
+    ],
+    "directory": "/Users/louis.demetz/code/minirt",
+    "file": "/Users/louis.demetz/code/minirt/source/init.c",
+    "output": "/Users/louis.demetz/code/minirt/obj/source/init.o"
   }
 ]

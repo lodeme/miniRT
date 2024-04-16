@@ -4,7 +4,9 @@ LIBFT   := ./libraries/libft
 LIBMLX  := ./libraries/mlx42
 HEADERS := -I ./include -I $(LIBMLX)/include -I $(LIBFT)
 LIBS    := $(LIBMLX)/build/libmlx42.a $(LIBFT)/libft.a -ldl -L/opt/homebrew/lib -lglfw -pthread -lm
-SRCS    :=	source/main.c
+SRCS    :=	source/main.c \
+						source/free.c \
+						source/init.c
 OBJ_DIR := obj
 SRC_DIRS := $(sort $(dir $(SRCS)))
 OBJ_DIRS := $(addprefix $(OBJ_DIR)/,$(SRC_DIRS))

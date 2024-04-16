@@ -12,39 +12,16 @@
 
 #include "minirt.h"
 
-void	throw_error(void)
+void	hook(void *param)
 {
-	ft_putstr_fd("Error\n", 1);
-	// free_env(env);
-	exit(EXIT_FAILURE);
+    t_data *data;
+
+	data = param;
+	if (mlx_is_key_down(data->win, MLX_KEY_ESCAPE))
+		mlx_close_window(data->win);
 }
 
-// void	hook(void *param)
-// {
-// 	t_env	*env;
-//
-// 	env = param;
-// 	if (mlx_is_key_down(env->window, MLX_KEY_ESCAPE))
-// 		mlx_close_window(env->window);
-// 	if (mlx_is_key_down(env->window, MLX_KEY_UP))
-// 		translate_y(env, 20);
-// 	if (mlx_is_key_down(env->window, MLX_KEY_DOWN))
-// 		translate_y(env, -20);
-// 	if (mlx_is_key_down(env->window, MLX_KEY_RIGHT))
-// 		translate_x(env, -20);
-// 	if (mlx_is_key_down(env->window, MLX_KEY_LEFT))
-// 		translate_x(env, 20);
-// 	if (mlx_is_key_down(env->window, MLX_KEY_KP_ADD))
-// 		zoom(env, 0.1);
-// 	if (mlx_is_key_down(env->window, MLX_KEY_KP_SUBTRACT))
-// 		zoom(env, -0.1);
-// 	if (mlx_is_key_down(env->window, MLX_KEY_KP_8))
-// 		rotate(env, 0.01);
-// 	if (mlx_is_key_down(env->window, MLX_KEY_KP_2))
-// 		rotate(env, -0.01);
-// }
-
-int minirt(mlx_image_t *img)
+int minirt(t_data *data)
 {
   int i;
   int j;
@@ -61,7 +38,7 @@ int minirt(mlx_image_t *img)
       r = (int)(255.999 * (double)(i) / (WIDTH - 1));
       g = (int)(255.999 * (double)(j) / (HEIGHT - 1));
       b = (int)(255.999 * 0.0);
-      mlx_put_pixel(img, i, j, (r << 24) | (g << 16) | (b << 8) | 255);
+      mlx_put_pixel(data->img, i, j, (r << 24) | (g << 16) | (b << 8) | 255);
       i++;
     }
     j++;
@@ -71,19 +48,15 @@ int minirt(mlx_image_t *img)
 
 int	main(void)
 {
-	mlx_t		*window;
-	mlx_image_t	*img;
+  t_data  *data;
 
-  window = mlx_init(WIDTH, HEIGHT, "miniRT", false);
-  if (!window)
-    throw_error();
-  img = mlx_new_image(window, WIDTH, HEIGHT);
-  if (!img || (mlx_image_to_window(window, img, 0, 0) < 0))
-    throw_error();
-  if (minirt(img) != SUCCESS)
+  data = init_data();
+  if (!data)
     return (EXIT_FAILURE);
-  // mlx_loop_hook(window, hook, env);
-  mlx_loop(window);
-  // free_env(env);
+  if (minirt(data) != SUCCESS)
+    return (EXIT_FAILURE);
+  mlx_loop_hook(data->win, hook, data);
+  mlx_loop(data->win);
+  free_data(data);
 	return (EXIT_SUCCESS);
 }
