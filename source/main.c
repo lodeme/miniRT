@@ -19,30 +19,30 @@ void	throw_error(t_env *env)
 	exit(EXIT_FAILURE);
 }
 
-void	hook(void *param)
-{
-	t_env	*env;
-
-	env = param;
-	if (mlx_is_key_down(env->window, MLX_KEY_ESCAPE))
-		mlx_close_window(env->window);
-	if (mlx_is_key_down(env->window, MLX_KEY_UP))
-		translate_y(env, 20);
-	if (mlx_is_key_down(env->window, MLX_KEY_DOWN))
-		translate_y(env, -20);
-	if (mlx_is_key_down(env->window, MLX_KEY_RIGHT))
-		translate_x(env, -20);
-	if (mlx_is_key_down(env->window, MLX_KEY_LEFT))
-		translate_x(env, 20);
-	if (mlx_is_key_down(env->window, MLX_KEY_KP_ADD))
-		zoom(env, 0.1);
-	if (mlx_is_key_down(env->window, MLX_KEY_KP_SUBTRACT))
-		zoom(env, -0.1);
-	if (mlx_is_key_down(env->window, MLX_KEY_KP_8))
-		rotate(env, 0.01);
-	if (mlx_is_key_down(env->window, MLX_KEY_KP_2))
-		rotate(env, -0.01);
-}
+// void	hook(void *param)
+// {
+// 	t_env	*env;
+//
+// 	env = param;
+// 	if (mlx_is_key_down(env->window, MLX_KEY_ESCAPE))
+// 		mlx_close_window(env->window);
+// 	if (mlx_is_key_down(env->window, MLX_KEY_UP))
+// 		translate_y(env, 20);
+// 	if (mlx_is_key_down(env->window, MLX_KEY_DOWN))
+// 		translate_y(env, -20);
+// 	if (mlx_is_key_down(env->window, MLX_KEY_RIGHT))
+// 		translate_x(env, -20);
+// 	if (mlx_is_key_down(env->window, MLX_KEY_LEFT))
+// 		translate_x(env, 20);
+// 	if (mlx_is_key_down(env->window, MLX_KEY_KP_ADD))
+// 		zoom(env, 0.1);
+// 	if (mlx_is_key_down(env->window, MLX_KEY_KP_SUBTRACT))
+// 		zoom(env, -0.1);
+// 	if (mlx_is_key_down(env->window, MLX_KEY_KP_8))
+// 		rotate(env, 0.01);
+// 	if (mlx_is_key_down(env->window, MLX_KEY_KP_2))
+// 		rotate(env, -0.01);
+// }
 
 int	main(int argc, char **argv)
 {

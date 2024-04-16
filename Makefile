@@ -2,11 +2,9 @@ NAME    := fdf
 CFLAGS  := -Wextra -Wall -Werror -Wunreachable-code -Ofast -g -O0
 LIBFT   := ./libraries/libft
 LIBMLX  := ./libraries/mlx42
-HEADERS := -I ./include -I $(LIBMLX)/include -I ./libraries/get_next_line -I $(LIBFT)
+HEADERS := -I ./include -I $(LIBMLX)/include -I $(LIBFT)
 LIBS    := $(LIBMLX)/build/libmlx42.a $(LIBFT)/libft.a -ldl -L/opt/homebrew/lib -lglfw -pthread -lm
-SRCS    :=	libraries/get_next_line/get_next_line.c \
-			libraries/get_next_line/get_next_line_utils.c \
-			source/main.c \
+SRCS    :=	source/main.c \
 			source/plot_line.c \
 			source/load_map.c \
 			source/utils.c \
