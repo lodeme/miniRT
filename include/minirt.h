@@ -37,8 +37,6 @@ typedef struct s_col
 int calc_color(int r, int g, int b, int a);
 
 // vector operations
-
-
 t_vec new_vec(double x, double y, double z);
 t_vec vec_add(t_vec v1, t_vec v2);
 t_vec vec_sub(t_vec v1, t_vec v2);
