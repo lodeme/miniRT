@@ -15,12 +15,6 @@
 # include "MLX42/MLX42.h"
 # include <math.h>
 
-typedef struct	s_data
-{
-	mlx_t				*win;
-	mlx_image_t	*img;
-}	t_data;
-
 typedef struct	s_vec
 {
 	double	x;
@@ -49,6 +43,15 @@ typedef struct	s_camera
 	double	fov;
 }	t_camera;
 
+typedef struct  s_viewport
+{
+  t_vec viewport_x;
+  t_vec viewport_y;
+  t_vec pixel_dx;
+  t_vec pixel_dy;
+  t_vec pixel00_loc;
+} t_viewport;
+
 typedef struct s_sphere
 {
 	t_vec	center;
@@ -56,8 +59,16 @@ typedef struct s_sphere
 	t_col	color;
 }	t_sphere;
 
+typedef struct	s_data
+{
+	mlx_t				*win;
+	mlx_image_t	*img;
+  t_camera    *cam;
+  t_viewport  *vp;
+}	t_data;
+
 // colors
-int calc_color(int r, int g, int b, int a);
+int calc_color(t_col col);
 
 // vector operations
 t_vec new_vec(double x, double y, double z);

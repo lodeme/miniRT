@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-int	calc_color(int r, int g, int b, int a)
+int	calc_color(t_col col)
 {
-	return ((r << 24) | (g << 16) | (b << 8) | a);
+	return ((col.r << 24) | (col.g << 16) | (col.b << 8) | col.a);
 }

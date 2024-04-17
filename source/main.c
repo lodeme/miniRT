@@ -12,6 +12,11 @@
 
 #include "minirt.h"
 
+// TODO : finish ray_color function
+// TODO : create functions to calculate colors
+// TODO : allocate memory where necessary
+// TODO : test code
+
 void	hook(void *param)
 {
 	t_data	*data;
@@ -21,13 +26,44 @@ void	hook(void *param)
 		mlx_close_window(data->win);
 }
 
+t_col	ray_color(t_vec *ray_direction)
+{
+	t_vec	unit_direction;
+	double	a;
+
+	unit_direction = vec_norm(ray_direction);
+	a = 0.5 * (unit_direction.y + 1.0);
+	return ();
+}
+
+void	calc_viewport(t_data *data)
+{
+	double		vheight;
+	double		vwidth;
+	t_vec		viewport_upper_left;
+
+	vheight = 2.0;
+	vwidth = vheight * ((double)WIDTH / HEIGHT);
+	data->cam->center = (t_vec){0, 0, 0};
+	data->vp->viewport_x = (t_vec){vwidth, 0, 0};
+	data->vp->viewport_y = (t_vec){0, -vheight, 0};
+	data->vp->pixel_dx = vec_scale(data->vp->viewport_x, 1.0 / WIDTH);
+	data->vp->pixel_dy = vec_scale(data->vp->viewport_y, 1.0 / HEIGHT);
+	viewport_upper_left = vec_sub(vec_sub(vec_sub(
+					data->cam->center, (t_vec){0.0, 0.0, FOCAL_LENGTH}), \
+					vec_scale(data->vp->viewport_x, 0.5)), \
+					vec_scale(data->vp->viewport_y, 0.5));
+	data->vp->pixel00_loc = vec_add(viewport_upper_left, \
+		vec_scale(vec_add(data->vp->pixel_dx, data->vp->pixel_dy), 0.5));
+}
+
 int	minirt(t_data *data)
 {
-	int	i;
-	int	j;
-	int	r;
-	int	g;
-	int	b;
+	int		i;
+	int		j;
+	t_vec	pixel_center;
+	t_vec	ray_direction;
+	t_col	pixel_color;
 
 	j = 0;
 	while (j < HEIGHT)
@@ -35,10 +71,12 @@ int	minirt(t_data *data)
 		i = 0;
 		while (i < WIDTH)
 		{
-			r = (int)(255.999 * (double)(i) / (WIDTH - 1));
-			g = (int)(255.999 * (double)(j) / (HEIGHT - 1));
-			b = (int)(255.999 * 0.0);
-			mlx_put_pixel(data->img, i, j, calc_color(r, g, b, 255));
+			calc_viewport(data);
+			pixel_center = vec_add(vec_add(data->vp->pixel00_loc, \
+						vec_scale(data->vp->pixel_dx, i)), \
+						vec_scale(data->vp->pixel_dy, j));
+			ray_direction = vec_sub(pixel_center, data->cam->center);
+			mlx_put_pixel(data->img, i, j, calc_color(ray_color(&ray_direction)));
 			i++;
 		}
 		j++;
@@ -59,24 +97,3 @@ int	main(void)
 	return (EXIT_SUCCESS);
 }
 
-void viewport(t_data *data)
-{
-	t_camera camera;
-	double vhight;
-	double vwidth;
-	t_vec	viewport_x;
-	t_vec	viewport_y;
-	int	pixel_x;
-	int pixel_y;
-	int viewport_upper_left;
-
-
-	vhight = 2.0;
-	vwidth = vhight * ((double)WIDTH / HEIGHT);
-	camera.center = (t_vec){0,0,0};
-	viewport_x = (t_vec){vwidth, 0, 0};
-	viewport_y = (t_vec){0, -vhight, 0};
-	pixel_x = vec_div_num(viewport_x, WIDTH);
-	pixel_y = vec_div_num(viewport_y, HEIGHT);
-	viewport_upper_left =
-}
