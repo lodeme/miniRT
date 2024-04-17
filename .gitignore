@@ -7,3 +7,4 @@ libraries/mlx42/build/CMakeFiles
 libraries/mlx42/build
 obj/source
 minirt
+compile_commands.json
