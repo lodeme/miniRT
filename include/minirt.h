@@ -15,44 +15,44 @@
 
 typedef struct s_data
 {
-  mlx_t       *win;
-  mlx_image_t *img;
-} t_data;
+	mlx_t				*win;
+	mlx_image_t	*img;
+}	t_data;
 
 typedef struct s_vec
 {
-  double x;
-  double y;
-  double z;
-} t_vec;
+	double	x;
+	double	y;
+	double	z;
+}	t_vec;
 
 typedef struct s_col
 {
-  int r;
-  int g;
-  int b;
-  int a;
+	int	r;
+	int	g;
+	int	b;
+	int	a;
 } t_col;
 
-typedef struct  s_ray
+typedef struct	s_ray
 {
-  t_vec origin;
-  t_vec direction;
-} t_ray;
+	t_vec origin;
+	t_vec direction;
+}	t_ray;
 
-typedef struct s_camera
+typedef struct	s_camera
 {
-  t_vec   center;
-  t_vec   normal;
-  double  fov;
-} t_camera;
+	t_vec		center;
+	t_vec		normal;
+	double	fov;
+}	t_camera;
 
 typedef struct s_sphere
 {
-  t_vec center;
-  t_vec normal;
-  t_col color;
-} t_sphere;
+	t_vec	center;
+	t_vec	normal;
+	t_col	color;
+}	t_sphere;
 
 // colors
 int calc_color(int r, int g, int b, int a);
