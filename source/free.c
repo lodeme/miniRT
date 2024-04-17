@@ -30,4 +30,3 @@ void	throw_error(t_data *data)
 	free_data(data);
 	exit(EXIT_FAILURE);
 }
-

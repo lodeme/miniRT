@@ -12,9 +12,9 @@
 
 #include "minirt.h"
 
-t_data *init_data(void)
+t_data	*init_data(void)
 {
-	t_data *data;
+	t_data	*data;
 
 	data = (t_data *)malloc(sizeof(t_data));
 	if (!data)
