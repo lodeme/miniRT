@@ -4,6 +4,7 @@
 
 # define WIDTH 1280
 # define HEIGHT 720
+# define RATIO (16.0/9.0)
 
 # define SUCCESS 0
 # define FAILURE 1
@@ -32,6 +33,26 @@ typedef struct s_col
   int b;
   int a;
 } t_col;
+
+typedef struct  s_ray
+{
+  t_vec origin;
+  t_vec direction;
+} t_ray;
+
+typedef struct s_camera
+{
+  t_vec   center;
+  t_vec   normal;
+  double  fov;
+} t_camera;
+
+typedef struct s_sphere
+{
+  t_vec center;
+  t_vec normal;
+  t_col color;
+} t_sphere;
 
 // colors
 int calc_color(int r, int g, int b, int a);
