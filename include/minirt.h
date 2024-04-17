@@ -13,13 +13,13 @@
 #include "MLX42/MLX42.h"
 #include <math.h>
 
-typedef struct s_data
+typedef struct	s_data
 {
 	mlx_t				*win;
 	mlx_image_t	*img;
 }	t_data;
 
-typedef struct s_vec
+typedef struct	s_vec
 {
 	double	x;
 	double	y;
@@ -67,7 +67,7 @@ double vec_length(t_vec v);
 t_vec vec_cross(t_vec v1, t_vec v2);
 double vec_dot(t_vec v1, t_vec v2);
 t_vec vec_norm(t_vec v);
-
+double vec_div_num(t_vec v, double s);
 // utils
 t_data *init_data(void);
 void free_data(t_data *data);
