@@ -4,14 +4,16 @@
 
 # define WIDTH 1280
 # define HEIGHT 720
-# define RATIO (16.0/9.0)
+# define RATIO 1.777777778
+# define FOCAL_LENGTH 1
+# define VIEWPORT_HEIGHT 2
 
 # define SUCCESS 0
 # define FAILURE 1
 
-#include "libft.h"
-#include "MLX42/MLX42.h"
-#include <math.h>
+# include "libft.h"
+# include "MLX42/MLX42.h"
+# include <math.h>
 
 typedef struct	s_data
 {
