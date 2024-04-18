@@ -20,6 +20,10 @@ void	free_data(t_data *data)
 			free(data->win);
 		if (data->img)
 			free(data->img);
+		if (data->cam)
+			free(data->cam);
+		if (data->vp)
+			free(data->vp);
 		free(data);
 	}
 }

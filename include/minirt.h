@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
-# define MINIRT_H
+#  define MINIRT_H
 
 # define WIDTH 1280
 # define HEIGHT 720
@@ -35,10 +35,10 @@ typedef struct s_vec
 
 typedef struct s_col
 {
-	int	r;
-	int	g;
-	int	b;
-	int	a;
+	double	r;
+	double	g;
+	double	b;
+	double	a;
 }	t_col;
 
 typedef struct s_ray

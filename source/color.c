@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 17:57:17 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/04/18 15:18:20 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/18 16:37:49 by louis.demet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,18 @@
 
 int	calc_color(t_col col)
 {
-	return ((col.r << 24) | (col.g << 16) | (col.b << 8) | col.a);
+	int	r;
+	int	g;
+	int	b;
+	int	a;
+
+	r = (int)(col.r * 255.999);
+	g = (int)(col.g * 255.999);
+	b = (int)(col.b * 255.999);
+	a = (int)(col.a * 255.999);
+	return ((r << 24) | (g << 16) | (b << 8) | a);
 }
 // color operations
-
 t_col	new_col(double r, double g, double b, double a)
 {
 	return ((t_col){r, g, b, a});

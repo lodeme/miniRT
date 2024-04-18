@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:52:15 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/04/18 15:13:04 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/18 16:36:06 by louis.demet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ t_col	ray_color(t_vec *ray_direction)
 
 	unit_direction = vec_norm(*ray_direction);
 	a = 0.5 * (unit_direction.y + 1.0);
-	return (col_add(col_scale((t_col){1.0, 1.0, 1.0, 1.0}, 1.0 - a), \
-					col_scale((t_col){0.5, 0.7, 1.0, 1.0}, a)));
+	t_col cs1 = col_scale(new_col(1.0, 1.0, 1.0, 1.0), 1.0 - a);
+	t_col cs2 = col_scale(new_col(0.5, 0.7, 1.0, 1.0), a);
+	t_col cadd = col_add(cs1, cs2);
+	return cadd;
 }
 
 void	calc_viewport(t_data *data)
@@ -77,7 +79,8 @@ int	minirt(t_data *data)
 						vec_scale(data->vp->pixel_dx, i)), \
 						vec_scale(data->vp->pixel_dy, j));
 			ray_direction = vec_sub(pixel_center, data->cam->center);
-			mlx_put_pixel(data->img, i, j, calc_color(ray_color(&ray_direction)));
+			t_col newcol = (ray_color(&ray_direction));
+			mlx_put_pixel(data->img, i, j, calc_color(newcol));
 			i++;
 		}
 		j++;
