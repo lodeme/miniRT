@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minirt.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/18 15:26:29 by lodemetz          #+#    #+#             */
+/*   Updated: 2024/04/18 15:26:29 by lodemetz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
@@ -61,9 +72,9 @@ typedef struct s_sphere
 
 typedef struct s_data
 {
-	mlx_t				*win;
+	mlx_t		*win;
 	mlx_image_t	*img;
-	t_camera		*cam;
+	t_camera	*cam;
 	t_viewport	*vp;
 }	t_data;
 
@@ -74,19 +85,19 @@ t_col	col_add(t_col v1, t_col v2);
 t_col	col_scale(t_col v, double s);
 
 // vector operations
-t_vec new_vec(double x, double y, double z);
-t_vec vec_add(t_vec v1, t_vec v2);
-t_vec vec_sub(t_vec v1, t_vec v2);
-t_vec vec_mult_vec(t_vec v1, t_vec v2);
-t_vec vec_scale(t_vec v, double s);
-double vec_length(t_vec v);
-t_vec vec_cross(t_vec v1, t_vec v2);
-double vec_dot(t_vec v1, t_vec v2);
-t_vec vec_norm(t_vec v);
-double vec_div_num(t_vec v, double s);
+t_vec	new_vec(double x, double y, double z);
+t_vec	vec_add(t_vec v1, t_vec v2);
+t_vec	vec_sub(t_vec v1, t_vec v2);
+t_vec	vec_mult_vec(t_vec v1, t_vec v2);
+t_vec	vec_scale(t_vec v, double s);
+double	vec_length(t_vec v);
+t_vec	vec_cross(t_vec v1, t_vec v2);
+double	vec_dot(t_vec v1, t_vec v2);
+t_vec	vec_norm(t_vec v);
+double	vec_div_num(t_vec v, double s);
 // utils
-t_data *init_data(void);
-void free_data(t_data *data);
+t_data	*init_data(void);
+void	free_data(t_data *data);
 void	throw_error(t_data *data);
 
 #endif
