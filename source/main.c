@@ -26,7 +26,23 @@ void	hook(void *param)
 		mlx_close_window(data->win);
 }
 
-t_col	ray_color(t_vec *ray_direction)
+int	hit_sphere(t_vec center, double radius, t_ray *ray)
+{
+	t_vec	oc;
+	double	a;
+	double	b;
+	double	c;
+	double	discriminant;
+
+	oc = vec_sub(center, ray->origin);
+	a = vec_dot(ray->direction, ray->direction);
+	b = vec_dot(ray->direction, oc) * -2.0;
+	c = vec_dot(oc, oc) - (radius * radius);
+	discriminant = (b * b) - (a * c * 4);
+	return (discriminant >= 0);
+}
+
+t_col	ray_color(t_ray *ray)
 {
 	t_vec	unit_direction;
 	double	a;
@@ -34,7 +50,9 @@ t_col	ray_color(t_vec *ray_direction)
 	t_col	cs2;
 	t_col	cadd;
 
-	unit_direction = vec_norm(*ray_direction);
+	if (hit_sphere((t_vec){0, 0, -1}, 0.5, ray))
+		return (new_col(1, 0, 0, 1));
+	unit_direction = vec_norm(ray->direction);
 	a = 0.5 * (unit_direction.y + 1.0);
 	cs1 = col_scale(new_col(1.0, 1.0, 1.0, 1.0), 1.0 - a);
 	cs2 = col_scale(new_col(0.5, 0.7, 1.0, 1.0), a);
@@ -69,6 +87,7 @@ int	minirt(t_data *data)
 	int		j;
 	t_vec	pixel_center;
 	t_vec	ray_direction;
+	t_ray	ray;
 
 	j = 0;
 	while (j < HEIGHT)
@@ -81,7 +100,8 @@ int	minirt(t_data *data)
 						vec_scale(data->vp->pixel_dx, i)), \
 						vec_scale(data->vp->pixel_dy, j));
 			ray_direction = vec_sub(pixel_center, data->cam->center);
-			mlx_put_pixel(data->img, i, j, calc_color(ray_color(&ray_direction)));
+			ray = (t_ray){pixel_center, ray_direction};
+			mlx_put_pixel(data->img, i, j, calc_color(ray_color(&ray)));
 			i++;
 		}
 		j++;
