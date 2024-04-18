@@ -97,6 +97,7 @@ t_vec	vec_norm(t_vec v);
 double	vec_div_num(t_vec v, double s);
 t_vec	vec_at(double t, t_ray *ray);
 t_vec	vec_add_const(t_vec v, double c);
+double	vec_length_squared(t_vec v);
 
 // utils
 t_data	*init_data(void);

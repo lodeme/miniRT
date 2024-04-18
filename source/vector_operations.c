@@ -42,9 +42,14 @@ t_vec	vec_scale(t_vec v, double s)
 	return (new_vec(v.x * s, v.y * s, v.z * s));
 }
 
+double	vec_length_squared(t_vec v)
+{
+	return (pow(v.x, 2) + pow(v.y, 2) + pow(v.z, 2));
+}
+
 double	vec_length(t_vec v)
 {
-	return (sqrt(pow(v.x, 2) + pow(v.y, 2) + pow(v.z, 2)));
+	return (sqrt(vec_length_squared(v)));
 }
 
 t_vec	vec_cross(t_vec v1, t_vec v2)
