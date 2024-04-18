@@ -95,6 +95,9 @@ t_vec	vec_cross(t_vec v1, t_vec v2);
 double	vec_dot(t_vec v1, t_vec v2);
 t_vec	vec_norm(t_vec v);
 double	vec_div_num(t_vec v, double s);
+t_vec	vec_at(double t, t_ray *ray);
+t_vec	vec_add_const(t_vec v, double c);
+
 // utils
 t_data	*init_data(void);
 void	free_data(t_data *data);

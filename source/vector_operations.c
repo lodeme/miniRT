@@ -22,6 +22,11 @@ t_vec	vec_add(t_vec v1, t_vec v2)
 	return (new_vec(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z));
 }
 
+t_vec	vec_add_const(t_vec v, double c)
+{
+	return (new_vec(v.x + c, v.y + c, v.z + c));
+}
+
 t_vec	vec_sub(t_vec v1, t_vec v2)
 {
 	return (new_vec(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z));
@@ -64,4 +69,9 @@ t_vec	vec_norm(t_vec v)
 /* double vec_div_num(t_vec v, double s)
 {
 	return ((v.x / s, v.y / s, v.z / s));
-} */
+}hit_sphere((t_vec){0, 0, -1}, 0.5, ray) */
+
+t_vec	vec_at(double t, t_ray *ray)
+{
+	return (vec_add(ray->origin, vec_scale(ray->direction, t)));
+}

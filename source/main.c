@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include <math.h>
 
 // TODO : finish ray_color function
 // TODO : create functions to calculate colors
@@ -26,7 +27,7 @@ void	hook(void *param)
 		mlx_close_window(data->win);
 }
 
-int	hit_sphere(t_vec center, double radius, t_ray *ray)
+double	hit_sphere(t_vec center, double radius, t_ray *ray)
 {
 	t_vec	oc;
 	double	a;
@@ -39,7 +40,10 @@ int	hit_sphere(t_vec center, double radius, t_ray *ray)
 	b = vec_dot(ray->direction, oc) * -2.0;
 	c = vec_dot(oc, oc) - (radius * radius);
 	discriminant = (b * b) - (a * c * 4);
-	return (discriminant >= 0);
+	if (discriminant < 0)
+		return (-1.0);
+	else
+		return (-b - sqrt(discriminant) / (2.0 * a));
 }
 
 t_col	ray_color(t_ray *ray)
@@ -49,9 +53,17 @@ t_col	ray_color(t_ray *ray)
 	t_col	cs1;
 	t_col	cs2;
 	t_col	cadd;
+	double	t;
+	t_vec	n;
+	t_vec	c;
 
-	if (hit_sphere((t_vec){0, 0, -1}, 0.5, ray))
-		return (new_col(1, 0, 0, 1));
+	t = hit_sphere((t_vec){0, 0, -1}, 0.5, ray);
+	if (t > 0.0)
+	{
+		n = vec_norm(vec_sub(vec_at(t, ray), new_vec(0, 0, -1)));
+		c = vec_scale(vec_add_const(n, 1), 0.5);
+		return (new_col(c.x, c.y, c.z, 1));
+	}
 	unit_direction = vec_norm(ray->direction);
 	a = 0.5 * (unit_direction.y + 1.0);
 	cs1 = col_scale(new_col(1.0, 1.0, 1.0, 1.0), 1.0 - a);
