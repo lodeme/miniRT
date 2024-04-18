@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:52:15 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/04/17 17:23:38 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:13:04 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ t_col	ray_color(t_vec *ray_direction)
 	t_vec	unit_direction;
 	double	a;
 
-	unit_direction = vec_norm(ray_direction);
+	unit_direction = vec_norm(*ray_direction);
 	a = 0.5 * (unit_direction.y + 1.0);
-	return ();
+	return (col_add(col_scale((t_col){1.0, 1.0, 1.0, 1.0}, 1.0 - a), \
+					col_scale((t_col){0.5, 0.7, 1.0, 1.0}, a)));
 }
 
 void	calc_viewport(t_data *data)
@@ -63,7 +64,7 @@ int	minirt(t_data *data)
 	int		j;
 	t_vec	pixel_center;
 	t_vec	ray_direction;
-	t_col	pixel_color;
+	//t_col	pixel_color;
 
 	j = 0;
 	while (j < HEIGHT)

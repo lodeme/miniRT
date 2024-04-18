@@ -15,7 +15,7 @@
 # include "MLX42/MLX42.h"
 # include <math.h>
 
-typedef struct	s_vec
+typedef struct s_vec
 {
 	double	x;
 	double	y;
@@ -28,29 +28,29 @@ typedef struct s_col
 	int	g;
 	int	b;
 	int	a;
-} t_col;
+}	t_col;
 
-typedef struct	s_ray
+typedef struct s_ray
 {
-	t_vec origin;
-	t_vec direction;
+	t_vec	origin;
+	t_vec	direction;
 }	t_ray;
 
-typedef struct	s_camera
+typedef struct s_camera
 {
 	t_vec		center;
 	t_vec		normal;
-	double	fov;
+	double		fov;
 }	t_camera;
 
-typedef struct  s_viewport
+typedef struct s_viewport
 {
-  t_vec viewport_x;
-  t_vec viewport_y;
-  t_vec pixel_dx;
-  t_vec pixel_dy;
-  t_vec pixel00_loc;
-} t_viewport;
+	t_vec	viewport_x;
+	t_vec	viewport_y;
+	t_vec	pixel_dx;
+	t_vec	pixel_dy;
+	t_vec	pixel00_loc;
+}	t_viewport;
 
 typedef struct s_sphere
 {
@@ -59,16 +59,19 @@ typedef struct s_sphere
 	t_col	color;
 }	t_sphere;
 
-typedef struct	s_data
+typedef struct s_data
 {
 	mlx_t				*win;
 	mlx_image_t	*img;
-  t_camera    *cam;
-  t_viewport  *vp;
+	t_camera		*cam;
+	t_viewport	*vp;
 }	t_data;
 
 // colors
-int calc_color(t_col col);
+int		calc_color(t_col col);
+t_col	new_col(double r, double g, double b, double a);
+t_col	col_add(t_col v1, t_col v2);
+t_col	col_scale(t_col v, double s);
 
 // vector operations
 t_vec new_vec(double x, double y, double z);

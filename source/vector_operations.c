@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 16:45:38 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/04/17 17:24:09 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:14:00 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_vec	vec_norm(t_vec v)
 {
 	return (vec_scale(v, 1.0 / vec_length(v)));
 }
-double vec_div_num(t_vec v, double s)
+/* double vec_div_num(t_vec v, double s)
 {
 	return ((v.x / s, v.y / s, v.z / s));
-}
+} */
