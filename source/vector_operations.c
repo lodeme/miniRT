@@ -65,3 +65,10 @@ t_vec	vec_norm(t_vec v)
 {
 	return ((v.x / s, v.y / s, v.z / s));
 } */
+
+t_vec	vec_at(t_ray *ray, double t)
+{
+	return (vec_add(ray->origin, vec_scale(ray->direction, t)));
+}
+
+
