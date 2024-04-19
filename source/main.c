@@ -6,12 +6,13 @@
 /*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:52:15 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/04/18 16:40:18 by louis.demet      ###   ########.fr       */
+/*   Updated: 2024/04/19 15:31:14 by louis.demet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include <math.h>
+#include <stdio.h>
 
 // TODO : finish ray_color function
 // TODO : create functions to calculate colors
@@ -43,7 +44,7 @@ double	hit_sphere(t_vec center, double radius, t_ray *ray)
 	if (discriminant < 0.0)
 		return (-1.0);
 	else
-		return (h - sqrt(discriminant) / a);
+		return ((h - sqrt(discriminant)) / a);
 }
 
 t_col	ray_color(t_ray *ray)
