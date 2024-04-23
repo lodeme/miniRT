@@ -1,36 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/16 15:58:41 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/04/23 10:41:52 by ubazzane         ###   ########.fr       */
+/*   Created: 2024/04/23 10:29:19 by ubazzane          #+#    #+#             */
+/*   Updated: 2024/04/23 17:28:30 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	free_data(t_data *data)
+void	parse(char **argv)
 {
-	if (data)
-	{
-		if (data->win)
-			free(data->win);
-		if (data->img)
-			free(data->img);
-		if (data->cam)
-			free(data->cam);
-		if (data->vp)
-			free(data->vp);
-		free(data);
-	}
+	check_file_extension(argv[1]);
+	extract_content(argv[1]);
 }
 
-void	throw_error(t_data *data)
-{
-	ft_putstr_fd("Error\n", 2);
-	free_data(data);
-	exit(EXIT_FAILURE);
-}

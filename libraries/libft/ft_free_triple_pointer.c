@@ -1,36 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_free_triple_pointer.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/16 15:58:41 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/04/23 10:41:52 by ubazzane         ###   ########.fr       */
+/*   Created: 2024/04/23 14:43:51 by ubazzane          #+#    #+#             */
+/*   Updated: 2024/04/23 14:44:36 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "libft.h"
 
-void	free_data(t_data *data)
+void	free_triple_pointer(char ***arr)
 {
-	if (data)
-	{
-		if (data->win)
-			free(data->win);
-		if (data->img)
-			free(data->img);
-		if (data->cam)
-			free(data->cam);
-		if (data->vp)
-			free(data->vp);
-		free(data);
-	}
-}
+	int	i;
 
-void	throw_error(t_data *data)
-{
-	ft_putstr_fd("Error\n", 2);
-	free_data(data);
-	exit(EXIT_FAILURE);
+	i = 0;
+	while (arr[i])
+		free_double_pointer(arr[i++]);
+	free(arr);
 }

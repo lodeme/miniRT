@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:26:29 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/04/18 15:26:29 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:30:11 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include "libft.h"
 # include "MLX42/MLX42.h"
 # include <math.h>
+#include <fcntl.h>
 
 typedef struct s_vec
 {

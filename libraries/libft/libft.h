@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 11:27:30 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/03/04 20:02:54 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/23 14:45:41 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,9 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 long	ft_atol(const char *str);
+int		ft_arrlen(char **arr);
+void	free_double_pointer(char **arr);
+void	free_triple_pointer(char ***arr);
 
 //Bonus: Node struct
 typedef struct s_list

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
+/*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:52:15 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/04/19 15:31:14 by louis.demet      ###   ########.fr       */
+/*   Updated: 2024/04/22 19:26:23 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,16 +122,20 @@ int	minirt(t_data *data)
 	return (SUCCESS);
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_data	*data;
 
-	data = init_data();
-	if (minirt(data) != SUCCESS)
-		return (EXIT_FAILURE);
-	mlx_loop_hook(data->win, hook, data);
-	mlx_loop(data->win);
-	free_data(data);
-	return (EXIT_SUCCESS);
+	if (argc == 2)
+	{
+		data = init_data();
+		if (minirt(data) != SUCCESS)
+			return (EXIT_FAILURE);
+		mlx_loop_hook(data->win, hook, data);
+		mlx_loop(data->win);
+		free_data(data);
+		return (EXIT_SUCCESS);
+	}
+	return (ft_putstr_fd("Error: invalid argument amount\n ", 2), 1);
 }
 
