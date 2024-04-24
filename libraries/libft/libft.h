@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 11:27:30 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/04/23 14:45:41 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/24 17:41:33 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdio.h>
 # include <ctype.h>
 # include <limits.h>
+# include <float.h>
 # include "./ft_printf/ft_printf.h"
 # include "./get_next_line/get_next_line.h"
 
@@ -58,9 +59,11 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 long	ft_atol(const char *str);
+double	ft_atod(const char *str);
 int		ft_arrlen(char **arr);
 void	free_double_pointer(char **arr);
 void	free_triple_pointer(char ***arr);
+int		ft_is_float(char *str);
 
 //Bonus: Node struct
 typedef struct s_list

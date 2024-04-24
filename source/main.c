@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:52:15 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/04/22 19:26:23 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/24 17:44:45 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,10 +125,12 @@ int	minirt(t_data *data)
 int	main(int argc, char **argv)
 {
 	t_data	*data;
+	char	***scene;
 
 	if (argc == 2)
 	{
-		data = init_data();
+		//scene = extract_file_content(argv[1]);
+		data = init_data(scene);
 		if (minirt(data) != SUCCESS)
 			return (EXIT_FAILURE);
 		mlx_loop_hook(data->win, hook, data);

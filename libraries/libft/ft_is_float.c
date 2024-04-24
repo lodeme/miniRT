@@ -1,25 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_is_float.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/21 16:17:26 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/04/24 14:02:22 by ubazzane         ###   ########.fr       */
+/*   Created: 2024/04/24 17:14:56 by ubazzane          #+#    #+#             */
+/*   Updated: 2024/04/24 17:15:18 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdio.h>
-# include "../libft.h"
+int	ft_is_float(char *str)
+{
+	int	i;
+	int	dot;
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 50
-# endif
-
-#endif
+	i = 0;
+	dot = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while (str[i])
+	{
+		if (str[i] == '.')
+		{
+			if (dot)
+				return (0);
+			dot = 1;
+		}
+		else if (!ft_isdigit(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}

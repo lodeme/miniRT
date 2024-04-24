@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:27:28 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/04/23 17:29:20 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:47:06 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*read_file(char *str)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		if (ft_strncmp(line, "\n", 1))
+		if (!ft_strncmp(line, "\n", 1))
 			ft_strjoin(file, line);
 		else
 			free(line);
@@ -85,12 +85,10 @@ char	***split_parameters(char *file)
 void	check_objs(char ***content)
 {
 	int	i;
-	int len;
 
 	i = -1;
 	while (content[++i])
 	{
-		len = ft_arrlen(content[i]);
 		if (is_obj(content[i][0]) == "error")
 		{
 			free_triple_pointer(content);

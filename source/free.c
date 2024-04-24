@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 15:58:41 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/04/23 10:41:52 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:55:54 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	free_data(t_data *data)
 	}
 }
 
-void	throw_error(t_data *data)
+void	throw_error(t_data *data, char *err)
 {
-	ft_putstr_fd("Error\n", 2);
+	ft_putstr_fd(err, 2);
 	free_data(data);
 	exit(EXIT_FAILURE);
 }

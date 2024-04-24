@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:26:29 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/04/23 13:30:11 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:09:03 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,38 @@ typedef struct s_viewport
 	t_vec	pixel00_loc;
 }	t_viewport;
 
+typedef struct s_light
+{
+	t_vec	center;
+	double	ratio;
+	t_col	color;
+}	t_light;
+
 typedef struct s_sphere
+{
+	t_vec	center;
+	double	radius;
+	t_vec	normal;
+	t_col	color;
+}	t_sphere;
+
+typedef struct s_plane
 {
 	t_vec	center;
 	t_vec	normal;
 	t_col	color;
-}	t_sphere;
+}	t_plane;
+
+typedef struct s_cylinder
+{
+	t_vec	center;
+	t_vec	cap1;
+	t_vec	cap2;
+	t_vec	normal;
+	double	radius;
+	double	height;
+	t_col	color;
+}	t_cylinder;
 
 typedef struct s_data
 {
@@ -77,6 +103,11 @@ typedef struct s_data
 	mlx_image_t	*img;
 	t_camera	*cam;
 	t_viewport	*vp;
+	t_light		*ambient;
+	t_light		*lights;
+	t_sphere	*spheres;
+	t_plane		*planes;
+	t_cylinder	*cylinders;
 }	t_data;
 
 // colors
@@ -101,8 +132,8 @@ t_vec	vec_add_const(t_vec v, double c);
 double	vec_length_squared(t_vec v);
 
 // utils
-t_data	*init_data(void);
+t_data	*init_data(char*** scene);
 void	free_data(t_data *data);
-void	throw_error(t_data *data);
+void	throw_error(t_data *data, char *err);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:14:10 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/04/23 17:18:38 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:49:14 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,18 @@ char	*is_obj(char *str)
 		return("cy");
 	else
 	 return ("error");
+}
+int	count_obj(char*** scene, char	*str)
+{
+	int	i;
+	int	count;
+
+	i = -1;
+	count = 0;
+	while (scene[++i])
+	{
+		if (is_obj(scene[i][0]) == str)
+			count++;
+	}
+	return (count);
 }

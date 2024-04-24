@@ -56,7 +56,9 @@ SRC =	ft_atoi.c\
 		./get_next_line/get_next_line.c\
 		ft_arrlen.c\
 		ft_free_double_pointer.c\
-		ft_free_triple_pointer.c
+		ft_free_triple_pointer.c\
+		ft_atod.c\
+		ft_is_float.c
 
 OBJS = $(SRC:%.c=$(OBJDIR)/%.o)
 
