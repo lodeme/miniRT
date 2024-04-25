@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:27:28 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/04/25 14:13:42 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/25 17:02:20 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 char	*read_file(char *str);
 char	***split_parameters(char *file);
 void	check_objs(char ***content);
+void	append_line(char *line, char **file);
 
 char	***extract_content(char *str)
 {
@@ -31,7 +32,6 @@ char	*read_file(char *str)
 {
 	char	*file;
 	char	*line;
-	char	*temp;
 	int		fd;
 
 	fd = open(str, O_RDONLY);
@@ -43,13 +43,7 @@ char	*read_file(char *str)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		if (ft_strncmp(line, "\n", 1))
-		{
-			temp = ft_strjoin(file, line);
-			free(file);
-			file = temp;
-		}
-		free(line);
+		append_line(line, &file);
 	}
 	close(fd);
 	if (!file || *file == '\0')
@@ -58,6 +52,19 @@ char	*read_file(char *str)
 		quit_parsing("Error: empty file\n");
 	}
 	return (file);
+}
+
+void	append_line(char *line, char **file)
+{
+	char *temp;
+
+	if (ft_strncmp(line, "\n", 1))
+	{
+		temp = ft_strjoin(*file, line);
+		free(*file);
+		*file = temp;
+	}
+	free(line);
 }
 
 char	***split_parameters(char *file)

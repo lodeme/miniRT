@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 11:50:04 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/04/25 12:16:42 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:42:28 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	parse_sphere(t_data *data, char*** scene, int i)
 		throw_error(data,"Error: (sphere) coordinates incorrect\n");
 	if (!get_diameter(&diameter, scene, i, 2))
 		throw_error(data, "Error: (sphere) diameter incorrect\n");
-	if (!get_color(&color, scene, i, index))
+	if (!get_color(&color, scene, i, 3))
 		throw_error(data, "Error: (sphere) color incorrect\n");
 	data->spheres[index].center.x = coordinates[0];
 	data->spheres[index].center.y = coordinates[1];
@@ -54,7 +54,7 @@ void	parse_plane(t_data *data, char*** scene, int i)
 		throw_error(data,"Error: (plane) coordinates incorrect\n");
 	if (!get_normal(&normal, scene, i))
 		throw_error(data, "Error: (plane) normal incorrect\n");
-	if (!get_color(&color, scene, i, index))
+	if (!get_color(&color, scene, i, 3))
 		throw_error(data, "Error: (plane) color incorrect\n");
 	data->planes[index].center.x = coordinates[0];
 	data->planes[index].center.y = coordinates[1];

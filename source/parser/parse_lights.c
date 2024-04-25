@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:11:24 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/04/25 12:53:04 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:29:42 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void	parse_ambient(t_data *data, char*** scene, int i)
 
 	if (ft_arrlen(scene[i]) != 3)
 		throw_error(data, "Error: ambient must contain 2 parameters\n");
-	if (!get_color(&color, scene, i, 0))
-		throw_error(data, "Error: (ambient) color incorrect\n");
 	if (!get_intensity(&intensity, scene, i, 1))
 		throw_error(data, "Error: (ambient) intensity incorrect\n");
+	if (!get_color(&color, scene, i, 2))
+		throw_error(data, "Error: (ambient) color incorrect\n");
 	data->ambient->color.r = color[0];
 	data->ambient->color.g = color[1];
 	data->ambient->color.b = color[2];
@@ -117,7 +117,7 @@ int	get_intensity(double **var, char*** scene, int arr_i, int str_i)
 	double	value;
 
 	temp = ft_split(scene[arr_i][str_i], ',');
-	if (ft_arrlen(temp) != 3)
+	if (ft_arrlen(temp) != 1)
 		return (0);
 	*var = malloc(sizeof(double) * 3);
 	if (*var == NULL)
