@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 11:27:30 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/04/25 11:56:02 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/25 12:51:51 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	free_double_pointer(char **arr);
 void	free_triple_pointer(char ***arr);
 int		ft_is_float(char *str);
 void	ft_free_multiple(int count, ...);
+int		ft_strcmp(const char *s1, const char *s2);
 
 //Bonus: Node struct
 typedef struct s_list

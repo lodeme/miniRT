@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:52:15 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/04/25 12:41:59 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/25 13:03:43 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,12 @@ t_col	ray_color(t_ray *ray)
 	{
 		n = vec_norm(vec_sub(vec_at(t, ray), new_vec(0, 0, -1)));
 		c = vec_scale(vec_add_const(n, 1), 0.5);
-		return (new_col(c.x, c.y, c.z, 1));
+		return (new_col(c.x, c.y, c.z));
 	}
 	unit_direction = vec_norm(ray->direction);
 	a = 0.5 * (unit_direction.y + 1.0);
-	cs1 = col_scale(new_col(1.0, 1.0, 1.0, 1.0), 1.0 - a);
-	cs2 = col_scale(new_col(0.5, 0.7, 1.0, 1.0), a);
+	cs1 = col_scale(new_col(1.0, 1.0, 1.0), 1.0 - a);
+	cs2 = col_scale(new_col(0.5, 0.7, 1.0), a);
 	cadd = col_add(cs1, cs2);
 	return (cadd);
 }

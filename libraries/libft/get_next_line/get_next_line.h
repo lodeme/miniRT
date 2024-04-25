@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 16:17:26 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/04/24 14:02:22 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/25 12:56:04 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,5 @@
 #  define BUFFER_SIZE 50
 # endif
 
+char	*get_next_line(int fd);
 #endif

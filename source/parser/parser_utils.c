@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:14:10 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/04/25 12:39:03 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/25 12:49:47 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,17 @@ void	check_file_extension(char *str)
 
 char	*is_obj(char *str)
 {
-	if(strcmp(str, "A"))
+	if(ft_strcmp(str, "A"))
 		return("A");
-	else if (strcmp(str, "C"))
+	else if (ft_strcmp(str, "C"))
 		return("C");
-	else if (strcmp(str, "L"))
+	else if (ft_strcmp(str, "L"))
 		return("L");
-	else if (strcmp(str, "sp"))
+	else if (ft_strcmp(str, "sp"))
 		return("sp");
-	else if (strcmp(str, "pl"))
+	else if (ft_strcmp(str, "pl"))
 		return("pl");
-	else if (strcmp(str, "cy"))
+	else if (ft_strcmp(str, "cy"))
 		return("cy");
 	else
 	 return ("error");

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   extract_content.c                                  :+:      :+:    :+:   */
+/*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:27:28 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/04/24 14:47:06 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/25 12:58:42 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,12 @@ char	***split_parameters(char *file)
 	char	***split_properties;
 	int		i;
 
-	split_lines = ft_split(file, "\n");
+	split_lines = ft_split(file, '\n');
 	split_properties = malloc(ft_arrlen(split_lines) * sizeof(char **) + 1);
 	i = -1;
 	while (split_lines[++i])
 	{
-		split_properties[i] = ft_split(split_lines[i], " ");
+		split_properties[i] = ft_split(split_lines[i], ' ');
 		if (!split_properties[i])
 		{
 			quit_parsing("Error: malloc() fail\n");
@@ -76,7 +76,7 @@ char	***split_parameters(char *file)
 			free_triple_pointer(split_properties);
 		}
 	}
-	split_properties[++i] = '\0';
+	split_properties[++i] = NULL;
 	free(file);
 	free_double_pointer(split_lines);
 	return (split_properties);
@@ -89,7 +89,7 @@ void	check_objs(char ***content)
 	i = -1;
 	while (content[++i])
 	{
-		if (is_obj(content[i][0]) == "error")
+		if (ft_strcmp(is_obj(content[i][0]), "error"))
 		{
 			free_triple_pointer(content);
 			quit_parsing("Error: invalid object detected\n");

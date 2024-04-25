@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:29:19 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/04/25 12:27:10 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/25 12:48:56 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,17 @@ void	parse_scene(t_data *data, char*** scene)
 	i = -1;
 	while(scene[++i])
 	{
-		if (is_obj(scene[i][0]) == "A")
+		if (ft_strcmp(scene[i][0], "A"))
 			parse_ambient(data, scene, i);
-		if (is_obj(scene[i][0]) == "L")
+		if (ft_strcmp(scene[i][0], "L"))
 			parse_light(data, scene, i);
-		if (is_obj(scene[i][0]) == "C")
+		if (ft_strcmp(scene[i][0], "C"))
 			parse_camera(data, scene, i);
-		if (is_obj(scene[i][0]) == "sp")
+		if (ft_strcmp(scene[i][0], "sp"))
 			parse_sphere(data, scene, i);
-		if (is_obj(scene[i][0]) == "pl")
+		if (ft_strcmp(scene[i][0], "pl"))
 			parse_plane(data, scene, i);
-		if (is_obj(scene[i][0]) == "cy")
+		if (ft_strcmp(scene[i][0], "cy"))
 			parse_cylinder(data, scene, i);
 	}
 	free_triple_pointer(scene);

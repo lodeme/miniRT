@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:27:35 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/04/25 12:34:41 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/25 12:55:01 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int get_color(double **var, char*** scene, int arr_i, int str_i)
 	int		j;
 	double	color;
 
-	temp = ft_split(scene[arr_i][str_i], ",");
+	temp = ft_split(scene[arr_i][str_i], ',');
 	if (ft_arrlen(temp) != 3)
 		return (0);
 	*var = malloc(sizeof(double) * 3);
@@ -40,9 +40,8 @@ int get_color(double **var, char*** scene, int arr_i, int str_i)
 int	get_diameter(double **var, char*** scene, int arr_i, int str_i)
 {
 	char	**temp;
-	int		j;
 
-	temp = ft_split(scene[arr_i][str_i], ",");
+	temp = ft_split(scene[arr_i][str_i], ',');
 	if (ft_arrlen(temp) != 1)
 		return (0);
 	if (!ft_is_float(temp[0]))
@@ -59,7 +58,7 @@ int	get_coordinates(double **var, char*** scene, int arr_i)
 	char	**temp;
 	int		j;
 
-	temp = ft_split(scene[arr_i][1], ",");
+	temp = ft_split(scene[arr_i][1], ',');
 	if (ft_arrlen(temp) != 3)
 		return (0);
 	*var = malloc(sizeof(double) * 3);
@@ -81,7 +80,7 @@ int	get_normal(double **var, char*** scene, int arr_i)
 	int		j;
 	double	value;
 
-	temp = ft_split(scene[arr_i][2], ",");
+	temp = ft_split(scene[arr_i][2], ',');
 	if (ft_arrlen(temp) != 3)
 		return (0);
 	*var = malloc(sizeof(double) * 3);
@@ -103,9 +102,8 @@ int	get_normal(double **var, char*** scene, int arr_i)
 int	get_height(double **var, char*** scene, int arr_i)
 {
 	char	**temp;
-	int		j;
 
-	temp = ft_split(scene[arr_i][4], ",");
+	temp = ft_split(scene[arr_i][4], ',');
 	if (ft_arrlen(temp) != 1)
 		return (0);
 	if (!ft_is_float(temp[0]))
