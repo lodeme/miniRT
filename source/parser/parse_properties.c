@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:27:35 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/04/24 17:28:36 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/25 12:34:41 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ int get_color(double **var, char*** scene, int arr_i, int str_i)
 	return (1);
 }
 
-int	get_diameter(double **var, char*** scene, int arr_i)
+int	get_diameter(double **var, char*** scene, int arr_i, int str_i)
 {
 	char	**temp;
 	int		j;
 
-	temp = ft_split(scene[arr_i][2], ",");
+	temp = ft_split(scene[arr_i][str_i], ",");
 	if (ft_arrlen(temp) != 1)
 		return (0);
 	if (!ft_is_float(temp[0]))
@@ -58,7 +58,6 @@ int	get_coordinates(double **var, char*** scene, int arr_i)
 {
 	char	**temp;
 	int		j;
-	double	value;
 
 	temp = ft_split(scene[arr_i][1], ",");
 	if (ft_arrlen(temp) != 3)
@@ -73,5 +72,47 @@ int	get_coordinates(double **var, char*** scene, int arr_i)
 			return (free(*var), 0);
 		(*var)[j] = ft_atod(temp[j]);
 	}
+	return (1);
+}
+
+int	get_normal(double **var, char*** scene, int arr_i)
+{
+	char	**temp;
+	int		j;
+	double	value;
+
+	temp = ft_split(scene[arr_i][2], ",");
+	if (ft_arrlen(temp) != 3)
+		return (0);
+	*var = malloc(sizeof(double) * 3);
+	if (*var == NULL)
+		return (0);
+	j = -1;
+	while (temp[++j])
+	{
+		if (!ft_is_float(temp[j]))
+			return (free(*var), 0);
+		value = ft_atod(temp[j]);
+		if (value < -1 || value > 1)
+			return (free(*var), 0);
+		(*var)[j] = value;
+	}
+	return (1);
+}
+
+int	get_height(double **var, char*** scene, int arr_i)
+{
+	char	**temp;
+	int		j;
+
+	temp = ft_split(scene[arr_i][4], ",");
+	if (ft_arrlen(temp) != 1)
+		return (0);
+	if (!ft_is_float(temp[0]))
+		return (0);
+	*var = malloc(sizeof(double));
+	if (*var == NULL)
+		return (0);
+	**var = ft_atod(temp[0]);
 	return (1);
 }

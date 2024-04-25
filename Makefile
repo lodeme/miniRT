@@ -8,7 +8,13 @@ SRCS    :=	source/main.c \
 						source/free.c \
 						source/init.c \
 						source/vector_operations.c \
-						source/color.c
+						source/color.c \
+						source/parser/parser.c \
+						source/parser/parser_utils.c \
+						source/parser/parse_lights.c \
+						source/parser/parse_objects.c \
+						source/parser/parse_properties.c \
+						source/parser/read_file.c
 OBJ_DIR := obj
 SRC_DIRS := $(sort $(dir $(SRCS)))
 OBJ_DIRS := $(addprefix $(OBJ_DIR)/,$(SRC_DIRS))
