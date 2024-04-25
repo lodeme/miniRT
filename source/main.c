@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:52:15 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/04/25 13:03:43 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/25 13:23:52 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int	main(int argc, char **argv)
 
 	if (argc == 2)
 	{
-		scene = extract_file_content(&argv[1]);
+		scene = extract_file_content(argv);
 		data = init_data(scene);
 		if (minirt(data) != SUCCESS)
 			return (EXIT_FAILURE);

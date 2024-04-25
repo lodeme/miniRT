@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:27:28 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/04/25 12:58:42 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/25 14:13:42 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ char	*read_file(char *str)
 {
 	char	*file;
 	char	*line;
+	char	*temp;
 	int		fd;
 
 	fd = open(str, O_RDONLY);
@@ -42,13 +43,16 @@ char	*read_file(char *str)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		if (!ft_strncmp(line, "\n", 1))
-			ft_strjoin(file, line);
-		else
-			free(line);
+		if (ft_strncmp(line, "\n", 1))
+		{
+			temp = ft_strjoin(file, line);
+			free(file);
+			file = temp;
+		}
+		free(line);
 	}
-	free(line);
-	if (!file)
+	close(fd);
+	if (!file || *file == '\0')
 	{
 		free(file);
 		quit_parsing("Error: empty file\n");
@@ -76,7 +80,7 @@ char	***split_parameters(char *file)
 			free_triple_pointer(split_properties);
 		}
 	}
-	split_properties[++i] = NULL;
+	split_properties[i] = NULL;
 	free(file);
 	free_double_pointer(split_lines);
 	return (split_properties);
@@ -89,7 +93,7 @@ void	check_objs(char ***content)
 	i = -1;
 	while (content[++i])
 	{
-		if (ft_strcmp(is_obj(content[i][0]), "error"))
+		if (!ft_strcmp(is_obj(content[i][0]), "error"))
 		{
 			free_triple_pointer(content);
 			quit_parsing("Error: invalid object detected\n");
