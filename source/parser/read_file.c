@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:27:28 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/04/25 17:02:20 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/25 17:16:24 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	append_line(char *line, char **file)
 {
 	char *temp;
 
-	if (ft_strncmp(line, "\n", 1))
+	if (ft_strncmp(line, "\n", 1) && ft_strncmp(line, "#", 1))
 	{
 		temp = ft_strjoin(*file, line);
 		free(*file);
