@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:26:29 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/04/25 13:02:00 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/27 20:07:37 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define RATIO 1.777777778
 # define FOCAL_LENGTH 1
 # define VIEWPORT_HEIGHT 2
+# define VIEWPORT_UP (t_vec){0, 1, 0}
 
 # define SUCCESS 0
 # define FAILURE 1
@@ -58,6 +59,7 @@ typedef struct s_viewport
 {
 	t_vec	viewport_x;
 	t_vec	viewport_y;
+	t_vec	viewport_z;
 	t_vec	pixel_dx;
 	t_vec	pixel_dy;
 	t_vec	pixel00_loc;

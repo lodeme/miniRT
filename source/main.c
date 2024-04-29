@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:52:15 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/04/25 13:23:52 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:02:58 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ double	hit_sphere(t_vec center, double radius, t_ray *ray)
 	if (discriminant < 0.0)
 		return (-1.0);
 	else
-		return ((h - sqrt(discriminant)) / a);
+		return ((-h - sqrt(discriminant)) / a);
 }
 
-t_col	ray_color(t_ray *ray)
+t_col	ray_color(t_data *data, t_ray *ray)
 {
 	t_vec	unit_direction;
 	double	a;
@@ -58,7 +58,7 @@ t_col	ray_color(t_ray *ray)
 	t_vec	n;
 	t_vec	c;
 
-	t = hit_sphere((t_vec){0, 0, -1}, 0.5, ray);
+	t = hit_sphere(data->spheres[0].center, data->spheres[0].radius, ray);
 	if (t > 0.0)
 	{
 		n = vec_norm(vec_sub(vec_at(t, ray), new_vec(0, 0, -1)));
@@ -79,17 +79,16 @@ void	calc_viewport(t_data *data)
 	double		vwidth;
 	t_vec		viewport_upper_left;
 
-	vheight = 2.0;
-	vwidth = vheight * ((double)WIDTH / HEIGHT);
-	data->cam->center = (t_vec){0, 0, 0};
-	data->vp->viewport_x = (t_vec){vwidth, 0, 0};
-	data->vp->viewport_y = (t_vec){0, -vheight, 0};
-	data->vp->pixel_dx = vec_scale(data->vp->viewport_x, 1.0 / WIDTH);
-	data->vp->pixel_dy = vec_scale(data->vp->viewport_y, 1.0 / HEIGHT);
+	vheight = tan((data->cam->fov * M_PI / 180.0) / 2.0);
+	vwidth = vheight * RATIO;
+	data->vp->viewport_x = vec_norm(vec_cross(VIEWPORT_UP, data->cam->normal));
+	data->vp->viewport_y = vec_norm(vec_cross(data->vp->viewport_x, data->cam->normal));
+	data->vp->pixel_dx = vec_scale(data->vp->viewport_x, vwidth / WIDTH);
+	data->vp->pixel_dy = vec_scale(data->vp->viewport_y, vheight / HEIGHT);
 	viewport_upper_left = vec_sub(vec_sub(vec_sub(
-					data->cam->center, (t_vec){0.0, 0.0, FOCAL_LENGTH}), \
-					vec_scale(data->vp->viewport_x, 0.5)), \
-					vec_scale(data->vp->viewport_y, 0.5));
+					data->cam->center, vec_scale(data->cam->normal, FOCAL_LENGTH)), \
+					vec_scale(data->vp->viewport_x, vwidth / 2.0)), \
+					vec_scale(data->vp->viewport_y, vheight / 2.0));
 	data->vp->pixel00_loc = vec_add(viewport_upper_left, \
 		vec_scale(vec_add(data->vp->pixel_dx, data->vp->pixel_dy), 0.5));
 }
@@ -102,19 +101,19 @@ int	minirt(t_data *data)
 	t_vec	ray_direction;
 	t_ray	ray;
 
+	calc_viewport(data);
 	j = 0;
 	while (j < HEIGHT)
 	{
 		i = 0;
 		while (i < WIDTH)
 		{
-			calc_viewport(data);
 			pixel_center = vec_add(vec_add(data->vp->pixel00_loc, \
 						vec_scale(data->vp->pixel_dx, i)), \
 						vec_scale(data->vp->pixel_dy, j));
 			ray_direction = vec_sub(pixel_center, data->cam->center);
 			ray = (t_ray){pixel_center, ray_direction};
-			mlx_put_pixel(data->img, i, j, calc_color(ray_color(&ray)));
+			mlx_put_pixel(data->img, i, j, calc_color(ray_color(data, &ray)));
 			i++;
 		}
 		j++;
