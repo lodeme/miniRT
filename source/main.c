@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:52:15 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/04/29 16:02:58 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:33:08 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_col	ray_color(t_data *data, t_ray *ray)
 	t = hit_sphere(data->spheres[0].center, data->spheres[0].radius, ray);
 	if (t > 0.0)
 	{
-		n = vec_norm(vec_sub(vec_at(t, ray), new_vec(0, 0, -1)));
+		n = vec_norm(vec_sub(vec_at(t, ray), data->spheres[0].center));
 		c = vec_scale(vec_add_const(n, 1), 0.5);
 		return (new_col(c.x, c.y, c.z));
 	}
