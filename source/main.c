@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:52:15 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/04/29 16:33:08 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/30 08:26:40 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ void	calc_viewport(t_data *data)
 
 	vheight = tan((data->cam->fov * M_PI / 180.0) / 2.0);
 	vwidth = vheight * RATIO;
-	data->vp->viewport_x = vec_norm(vec_cross(VIEWPORT_UP, data->cam->normal));
-	data->vp->viewport_y = vec_norm(vec_cross(data->vp->viewport_x, data->cam->normal));
+	data->vp->viewport_x = vec_norm(vec_cross(data->cam->normal, VIEWPORT_UP));
+	data->vp->viewport_y = vec_norm(vec_cross(data->cam->normal, data->vp->viewport_x));
 	data->vp->pixel_dx = vec_scale(data->vp->viewport_x, vwidth / WIDTH);
 	data->vp->pixel_dy = vec_scale(data->vp->viewport_y, vheight / HEIGHT);
 	viewport_upper_left = vec_sub(vec_sub(vec_sub(
