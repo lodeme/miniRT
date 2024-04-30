@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:11:24 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/04/30 12:00:40 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/30 16:21:14 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,22 +91,24 @@ int	get_fov(double **var, char*** scene, int arr_i)
 	int		j;
 	double	value;
 
-	temp = ft_split(scene[arr_i][3], ',');
-	if (ft_arrlen(temp) != 1)
+	if (!(temp = ft_split(scene[arr_i][3], ',')))
 		return (0);
+	if (ft_arrlen(temp) != 1)
+		return (free_double_pointer(temp), 0);
 	*var = malloc(sizeof(double));
 	if (*var == NULL)
-		return (0);
+		return (free_double_pointer(temp), 0);
 	j = -1;
 	while (temp[++j])
 	{
 		if (!ft_is_float(temp[j]))
-			return (free(*var), 0);
+			return (free(*var), free_double_pointer(temp), 0);
 		value = ft_atoi(temp[j]);
 		if (value < 0 || value > 180)
-			return (free(*var), 0);
+			return (free(*var), free_double_pointer(temp), 0);
 		**var = value;
 	}
+	free_double_pointer(temp);
 	return (1);
 }
 
@@ -116,21 +118,23 @@ double	get_intensity(double **var, char*** scene, int arr_i, int str_i)
 	int		j;
 	double	value;
 
-	temp = ft_split(scene[arr_i][str_i], ',');
-	if (ft_arrlen(temp) != 1)
+	if (!(temp = ft_split(scene[arr_i][str_i], ',')))
 		return (0);
+	if (ft_arrlen(temp) != 1)
+		return (free_double_pointer(temp), 0);
 	*var = malloc(sizeof(double) * 3);
 	if (*var == NULL)
-		return (0);
+		return (free_double_pointer(temp), 0);
 	j = -1;
 	while (temp[++j])
 	{
 		if (!ft_is_float(temp[j]))
-			return (free(*var), 0);
+			return (free(*var), free_double_pointer(temp), 0);
 		value = ft_atod(temp[j]);
 		if (value < 0 || value > 1)
-			return (free(*var), 0);
+			return (free(*var), free_double_pointer(temp), 0);
 		(*var)[j] = value;
 	}
+	free_double_pointer(temp);
 	return (1);
 }
