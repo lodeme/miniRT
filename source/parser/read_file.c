@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:27:28 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/04/25 17:16:24 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/30 15:31:19 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,16 +75,22 @@ char	***split_parameters(char *file)
 
 	split_lines = ft_split(file, '\n');
 	split_properties = malloc(ft_arrlen(split_lines) * sizeof(char **) + 1);
+	if (!split_properties)
+	{
+		free(file);
+		free_double_pointer(split_lines);
+		quit_parsing("Error: malloc() fail\n");
+	}
 	i = -1;
 	while (split_lines[++i])
 	{
 		split_properties[i] = ft_split(split_lines[i], ' ');
 		if (!split_properties[i])
 		{
-			quit_parsing("Error: malloc() fail\n");
 			free(file);
 			free_double_pointer(split_lines);
 			free_triple_pointer(split_properties);
+			quit_parsing("Error: malloc() fail\n");
 		}
 	}
 	split_properties[i] = NULL;
