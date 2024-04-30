@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:26:29 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/04/30 11:39:14 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:01:48 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,11 +148,11 @@ void	parse_cylinder(t_data *data, char*** scene, int i);
 void	parse_camera(t_data *data, char*** scene, int i);
 void	parse_light(t_data *data, char*** scene, int i);
 void	parse_ambient(t_data *data, char*** scene, int i);
-int		get_color(double **var, char*** scene, int arr_i, int str_i);
-int		get_diameter(double **var, char*** scene, int arr_i, int str_i);
-int		get_coordinates(double **var, char*** scene, int arr_i);
-int		get_normal(double **var, char*** scene, int arr_i);
-int		get_height(double **var, char*** scene, int arr_i);
+double		get_color(double **var, char*** scene, int arr_i, int str_i);
+double	get_diameter(double **var, char*** scene, int arr_i, int str_i);
+double	get_coordinates(double **var, char*** scene, int arr_i);
+double	get_normal(double **var, char*** scene, int arr_i);
+double	get_height(double **var, char*** scene, int arr_i);
 void	quit_parsing(char *str);
 void	check_file_extension(char *str);
 char	*is_obj(char *str);

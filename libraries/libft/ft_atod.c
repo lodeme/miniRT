@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 15:41:43 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/04/24 17:41:37 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:15:01 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,15 @@ double process_integer_part(const char **str, double *res, int sign)
 
 double process_fractional_part(const char **str, double *res, double *place)
 {
-	if (*(*str)++ == '.')
+	if (*(*str) == '.')
 	{
+		(*str)++;
 		while (**str >= '0' && **str <= '9')
 		{
 			if (*place < DBL_MIN * 10.0)
 				break;
-			*res = *res + (*(*str)++ - '0') * (*place /= 10);
+			*res += (*(*str)++ - '0') * (*place);
+			*place /= 10;
 		}
 	}
 	return *res;

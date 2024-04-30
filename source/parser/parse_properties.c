@@ -6,13 +6,13 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:27:35 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/04/25 12:55:01 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:01:38 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int get_color(double **var, char*** scene, int arr_i, int str_i)
+double get_color(double **var, char*** scene, int arr_i, int str_i)
 {
 	char	**temp;
 	int		j;
@@ -37,7 +37,7 @@ int get_color(double **var, char*** scene, int arr_i, int str_i)
 	return (1);
 }
 
-int	get_diameter(double **var, char*** scene, int arr_i, int str_i)
+double	get_diameter(double **var, char*** scene, int arr_i, int str_i)
 {
 	char	**temp;
 
@@ -53,7 +53,7 @@ int	get_diameter(double **var, char*** scene, int arr_i, int str_i)
 	return (1);
 }
 
-int	get_coordinates(double **var, char*** scene, int arr_i)
+double	get_coordinates(double **var, char*** scene, int arr_i)
 {
 	char	**temp;
 	int		j;
@@ -74,7 +74,7 @@ int	get_coordinates(double **var, char*** scene, int arr_i)
 	return (1);
 }
 
-int	get_normal(double **var, char*** scene, int arr_i)
+double	get_normal(double **var, char*** scene, int arr_i)
 {
 	char	**temp;
 	int		j;
@@ -99,7 +99,7 @@ int	get_normal(double **var, char*** scene, int arr_i)
 	return (1);
 }
 
-int	get_height(double **var, char*** scene, int arr_i)
+double	get_height(double **var, char*** scene, int arr_i)
 {
 	char	**temp;
 
