@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 15:50:46 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/04/24 15:08:05 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/30 11:40:36 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,26 @@ t_data	*init_data(char ***scene)
 	init_window(data);
 	init_scene(data, scene);
 	parse_scene(data, scene);
+	init_viewport(data);
 	return (data);
+}
+
+void	init_viewport(t_data *data)
+{
+	double		vheight;
+	double		vwidth;
+	t_vec		viewport_upper_left;
+
+	vheight = tan((data->cam->fov * M_PI / 180.0) / 2.0);
+	vwidth = vheight * RATIO;
+	data->vp->viewport_x = vec_norm(vec_cross(data->cam->normal, VIEWPORT_UP));
+	data->vp->viewport_y = vec_norm(vec_cross(data->cam->normal, data->vp->viewport_x));
+	data->vp->pixel_dx = vec_scale(data->vp->viewport_x, vwidth / WIDTH);
+	data->vp->pixel_dy = vec_scale(data->vp->viewport_y, vheight / HEIGHT);
+	viewport_upper_left = vec_sub(vec_sub(vec_sub(
+					data->cam->center, vec_scale(data->cam->normal, FOCAL_LENGTH)), \
+					vec_scale(data->vp->viewport_x, vwidth / 2.0)), \
+					vec_scale(data->vp->viewport_y, vheight / 2.0));
+	data->vp->pixel00_loc = vec_add(viewport_upper_left, \
+		vec_scale(vec_add(data->vp->pixel_dx, data->vp->pixel_dy), 0.5));
 }

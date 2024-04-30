@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:52:15 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/04/30 08:26:40 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/30 11:48:54 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,19 @@ double	hit_sphere(t_vec center, double radius, t_ray *ray)
 {
 	t_vec	oc;
 	double	a;
-	double	h;
+	double	b;
 	double	c;
 	double	discriminant;
 
 	oc = vec_sub(center, ray->origin);
-	a = vec_length_squared(ray->direction);
-	h = vec_dot(ray->direction, oc);
-	c = vec_length_squared(oc) - (radius * radius);
-	discriminant = (h * h) - (a * c);
-	if (discriminant < 0.0)
+	a = vec_dot(ray->direction, ray->direction);
+	b = vec_dot(ray->direction, oc) * 2.0;
+	c = vec_dot(oc, oc) - (radius * radius);
+	discriminant = (b * b) - (a * c * 4);
+	if (discriminant < 0)
 		return (-1.0);
 	else
-		return ((-h - sqrt(discriminant)) / a);
+		return ((-b - sqrt(discriminant)) / (2.0 * a));
 }
 
 t_col	ray_color(t_data *data, t_ray *ray)
@@ -68,55 +68,40 @@ t_col	ray_color(t_data *data, t_ray *ray)
 	unit_direction = vec_norm(ray->direction);
 	a = 0.5 * (unit_direction.y + 1.0);
 	cs1 = col_scale(new_col(1.0, 1.0, 1.0), 1.0 - a);
-	cs2 = col_scale(new_col(0.5, 0.7, 1.0), a);
+	cs2 = col_scale(new_col(0.4, 0.6, 1.0), a);
 	cadd = col_add(cs1, cs2);
 	return (cadd);
 }
 
-void	calc_viewport(t_data *data)
+t_ray	create_ray(t_data *data, int x_index, int y_index)
 {
-	double		vheight;
-	double		vwidth;
-	t_vec		viewport_upper_left;
-
-	vheight = tan((data->cam->fov * M_PI / 180.0) / 2.0);
-	vwidth = vheight * RATIO;
-	data->vp->viewport_x = vec_norm(vec_cross(data->cam->normal, VIEWPORT_UP));
-	data->vp->viewport_y = vec_norm(vec_cross(data->cam->normal, data->vp->viewport_x));
-	data->vp->pixel_dx = vec_scale(data->vp->viewport_x, vwidth / WIDTH);
-	data->vp->pixel_dy = vec_scale(data->vp->viewport_y, vheight / HEIGHT);
-	viewport_upper_left = vec_sub(vec_sub(vec_sub(
-					data->cam->center, vec_scale(data->cam->normal, FOCAL_LENGTH)), \
-					vec_scale(data->vp->viewport_x, vwidth / 2.0)), \
-					vec_scale(data->vp->viewport_y, vheight / 2.0));
-	data->vp->pixel00_loc = vec_add(viewport_upper_left, \
-		vec_scale(vec_add(data->vp->pixel_dx, data->vp->pixel_dy), 0.5));
-}
-
-int	minirt(t_data *data)
-{
-	int		i;
-	int		j;
 	t_vec	pixel_center;
 	t_vec	ray_direction;
 	t_ray	ray;
 
-	calc_viewport(data);
-	j = 0;
-	while (j < HEIGHT)
+	pixel_center = vec_add(vec_add(data->vp->pixel00_loc, \
+				vec_scale(data->vp->pixel_dx, x_index)), \
+				vec_scale(data->vp->pixel_dy, y_index));
+	ray_direction = vec_sub(pixel_center, data->cam->center);
+	ray = (t_ray){pixel_center, ray_direction};
+	return (ray);
+}
+
+int	minirt(t_data *data)
+{
+	int		x_index;
+	int		y_index;
+	t_ray	ray;
+
+	y_index = -1;
+	while (++y_index < HEIGHT)
 	{
-		i = 0;
-		while (i < WIDTH)
+		x_index = -1;
+		while (++x_index < WIDTH)
 		{
-			pixel_center = vec_add(vec_add(data->vp->pixel00_loc, \
-						vec_scale(data->vp->pixel_dx, i)), \
-						vec_scale(data->vp->pixel_dy, j));
-			ray_direction = vec_sub(pixel_center, data->cam->center);
-			ray = (t_ray){pixel_center, ray_direction};
-			mlx_put_pixel(data->img, i, j, calc_color(ray_color(data, &ray)));
-			i++;
+			ray = create_ray(data, x_index, y_index);
+			mlx_put_pixel(data->img, x_index, y_index, calc_color(ray_color(data, &ray)));
 		}
-		j++;
 	}
 	return (SUCCESS);
 }

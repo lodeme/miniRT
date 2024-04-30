@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:26:29 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/04/27 20:07:37 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/30 11:39:14 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ double	vec_length_squared(t_vec v);
 t_data	*init_data(char*** scene);
 void	free_data(t_data *data);
 void	throw_error(t_data *data, char *err);
+void	init_viewport(t_data *data);
 
 // parser
 char	***extract_file_content(char **argv);
