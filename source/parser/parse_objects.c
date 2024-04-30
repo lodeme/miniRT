@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 11:50:04 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/04/25 16:42:28 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/04/30 17:32:11 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	parse_sphere(t_data *data, char*** scene, int i)
 	if (!get_color(&color, scene, i, 3))
 		throw_error(data, "Error: (sphere) color incorrect\n");
 	data->spheres[index].center.x = coordinates[0];
-	data->spheres[index].center.y = coordinates[1];
+	data->spheres[index].center.y = -1 * coordinates[1];
 	data->spheres[index].center.z = coordinates[2];
 	data->spheres[index].radius = *diameter / 2;
 	data->spheres[index].color.r = color[0];
@@ -57,10 +57,10 @@ void	parse_plane(t_data *data, char*** scene, int i)
 	if (!get_color(&color, scene, i, 3))
 		throw_error(data, "Error: (plane) color incorrect\n");
 	data->planes[index].center.x = coordinates[0];
-	data->planes[index].center.y = coordinates[1];
+	data->planes[index].center.y = -1 * coordinates[1];
 	data->planes[index].center.z = coordinates[2];
 	data->planes[index].normal.x = normal[0];
-	data->planes[index].normal.y = normal[1];
+	data->planes[index].normal.y = -1 * normal[1]; //not sure this needs to be inverted
 	data->planes[index].normal.z = normal[2];
 	data->planes[index].color.r = color[0];
 	data->planes[index].color.g = color[1];
@@ -99,10 +99,10 @@ void	load_struct_cylinder(t_data *data, double *coordinates, double *normal,\
 double *diameter, double *height, double *color, int index)
 {
 	data->cylinders[index].center.x = coordinates[0];
-	data->cylinders[index].center.y = coordinates[1];
+	data->cylinders[index].center.y = -1 * coordinates[1];
 	data->cylinders[index].center.z = coordinates[2];
 	data->cylinders[index].normal.x = normal[0];
-	data->cylinders[index].normal.y = normal[1];
+	data->cylinders[index].normal.y = -1 * normal[1]; //not sure this needs to be inverted
 	data->cylinders[index].normal.z = normal[2];
 	data->cylinders[index].radius = *diameter / 2;
 	data->cylinders[index].height = *height;
