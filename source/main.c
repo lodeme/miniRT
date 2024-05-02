@@ -6,7 +6,7 @@
 /*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:52:15 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/02 18:05:03 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/05/02 18:23:56 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	minirt(t_data *data)
 		while (++x_index < WIDTH)
 		{
 			ray = create_ray(data, x_index, y_index);
-			color = convert_color(pixel_color(data, &ray), 1);
+			color = convert_color(pixel_color(data, &ray));
 			mlx_put_pixel(data->img, x_index, y_index, color);
 		}
 	}

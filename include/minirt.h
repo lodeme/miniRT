@@ -6,7 +6,7 @@
 /*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:26:29 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/02 17:57:29 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/05/02 18:24:30 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ typedef struct s_data
 }	t_data;
 
 // colors
-int		convert_color(t_col col, double alpha);
+int		convert_color(t_col col);
 t_col	new_col(double r, double g, double b);
 t_col	col_add(t_col v1, t_col v2);
 t_col	col_scale(t_col v, double s);
