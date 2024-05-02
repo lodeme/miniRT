@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
+/*   color_operations.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 17:57:17 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/04/25 13:00:49 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/02 17:42:48 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	calc_color(t_col col)
+int	convert_color(t_col col, double alpha)
 {
 	int	r;
 	int	g;
 	int	b;
+	int a;
 
 	r = (int)(col.r * 255.999);
 	g = (int)(col.g * 255.999);
 	b = (int)(col.b * 255.999);
-	return ((r << 24) | (g << 16) | (b << 8) | 255);
+	a = (int)(alpha * 255.999);
+	return ((r << 24) | (g << 16) | (b << 8) | a);
 }
 // color operations
 t_col	new_col(double r, double g, double b)

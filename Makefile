@@ -8,7 +8,9 @@ SRCS    :=	source/main.c \
 						source/free.c \
 						source/init.c \
 						source/vector_operations.c \
-						source/color.c \
+						source/color_operations.c \
+						source/intersections.c \
+						source/pixel.c \
 						source/parser/parser.c \
 						source/parser/parser_utils.c \
 						source/parser/parse_lights.c \

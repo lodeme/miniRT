@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:26:29 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/04/30 16:54:56 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/02 17:57:29 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,10 +112,19 @@ typedef struct s_data
 }	t_data;
 
 // colors
-int		calc_color(t_col col);
+int		convert_color(t_col col, double alpha);
 t_col	new_col(double r, double g, double b);
 t_col	col_add(t_col v1, t_col v2);
 t_col	col_scale(t_col v, double s);
+t_col	pixel_color(t_data *data, t_ray *ray);
+
+// pixel operations
+t_col	sky_gradient(t_ray *ray);
+t_col	pixel_color(t_data *data, t_ray *ray);
+
+// intersections
+double	hit_sphere(t_vec center, double radius, t_ray *ray);
+t_ray	create_ray(t_data *data, int x_index, int y_index);
 
 // vector operations
 t_vec	new_vec(double x, double y, double z);
