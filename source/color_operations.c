@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color_operations.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 17:57:17 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/02 18:24:06 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:26:12 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,9 @@ t_col	col_add(t_col v1, t_col v2)
 t_col	col_scale(t_col v, double s)
 {
 	return (new_col(v.r * s, v.g * s, v.b * s));
+}
+
+t_col	col_mul(t_col v1, t_col v2)
+{
+	return (new_col(v1.r * v2.r, v1.g * v2.g, v1.b * v2.b));
 }

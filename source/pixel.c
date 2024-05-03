@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixel.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:55:03 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/02 18:03:12 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:27:29 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,45 @@ t_col	sky_gradient(t_ray *ray)
 	return (cadd);
 }
 
+double max(double a, double b)
+{
+	if (a > b)
+		return a;
+	return b;
+}
+
+t_col	calc_diffuse_light(t_data *data, t_vec hit_point, t_vec normal)
+{
+	t_vec	light_dir;
+	double	lambertian;
+	t_col	light_color;
+	t_col	object_color;
+
+	light_dir = vec_norm(vec_sub(data->lights->center, hit_point));
+	lambertian = max(0.0, vec_dot(normal, light_dir));
+	light_color = data->lights->color;
+	object_color = data->spheres[0].color;
+	return col_scale(col_mul(object_color, light_color), lambertian);
+}
 
 t_col	pixel_color(t_data *data, t_ray *ray)
+{
+	double	t;
+	t_vec	hit_point;
+	t_vec	normal;
+
+	t = hit_sphere(data->spheres[0].center, data->spheres[0].radius, ray);
+	if (t > 0.0)
+	{
+		hit_point = vec_add(ray->origin, vec_scale(ray->direction, t));
+		normal = vec_norm(vec_sub(hit_point, data->spheres[0].center));
+		return calc_diffuse_light(data, hit_point, normal);
+	}
+	else
+		return sky_gradient(ray);
+}
+
+/* t_col	pixel_color(t_data *data, t_ray *ray)
 {
 	double	t;
 
@@ -43,3 +80,8 @@ t_col	pixel_color(t_data *data, t_ray *ray)
 	else
 		return(sky_gradient(ray));
 }
+
+t_col ambient(t_data *data)
+{
+	return (col_scale(data->ambient->color, data->ambient->ratio));
+} */

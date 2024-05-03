@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:26:29 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/03 13:12:38 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:26:47 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ int		convert_color(t_col col);
 t_col	new_col(double r, double g, double b);
 t_col	col_add(t_col v1, t_col v2);
 t_col	col_scale(t_col v, double s);
+t_col	col_mul(t_col v1, t_col v2);
 t_col	pixel_color(t_data *data, t_ray *ray);
 
 // pixel operations
