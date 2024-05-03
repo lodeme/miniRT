@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:11:24 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/05/03 13:13:36 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/03 19:39:07 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	parse_light(t_data *data, char*** scene, int i)
 		throw_error(data, "Error: (light) intensity incorrect\n");
 	if (!get_color(&color, scene, i, 3))
 		throw_error(data, "Error: (light) color incorrect\n");
-	data->lights[index].center.x = coordinates[0];
-	data->lights[index].center.y = -1 * coordinates[1];
+	data->lights[index].center.x = -coordinates[0];
+	data->lights[index].center.y = coordinates[1];
 	data->lights[index].center.z = coordinates[2];
 	data->lights[index].ratio = *intensity;
 	data->lights[index].color.r = color[0];

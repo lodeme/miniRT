@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:55:03 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/03 16:27:29 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/03 19:37:11 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ t_col	pixel_color(t_data *data, t_ray *ray)
 	}
 	else
 		return(sky_gradient(ray));
-}
+} */
 
 t_col ambient(t_data *data)
 {
 	return (col_scale(data->ambient->color, data->ambient->ratio));
-} */
+}

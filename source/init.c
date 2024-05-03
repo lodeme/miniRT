@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 15:50:46 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/04/30 11:40:36 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/03 19:28:43 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,3 +81,43 @@ void	init_viewport(t_data *data)
 	data->vp->pixel00_loc = vec_add(viewport_upper_left, \
 		vec_scale(vec_add(data->vp->pixel_dx, data->vp->pixel_dy), 0.5));
 }
+
+/* void	init_viewport(t_data *data)
+{
+	data->vp->vwidth = tan(((data->cam->fov / 2 * M_PI) / 180.0));
+	data->vp->vheight = data->vp->vwidth / RATIO;
+	data->vp->viewport_x = vec_norm(vec_cross(data->cam->normal, VIEWPORT_UP));
+	data->vp->viewport_y = vec_norm(vec_cross(data->cam->normal, data->vp->viewport_x));
+	data->vp->viewport_x = vec_norm(vec_cross(data->cam->normal, data->vp->viewport_y));
+}
+
+t_vec	pixels_to_viewport(int x, int y)
+{
+	t_vec	pixel;
+	double	width;
+	double	height;
+
+	width = WIDTH;
+	height = HEIGHT;
+	pixel.x = ((2.0f * x) / width) - 1;
+	pixel.y = ((2.0f * y) / height) - 1;
+	pixel.z = 0;
+	return (pixel);
+} */
+
+/* t_ray	make_ray(t_data *data, t_vec factors)
+{
+	t_ray	ray;
+	t_vec	vertical;
+	t_vec	horizontal;
+	t_vec	res;
+
+	vertical = vec_scale(data->vp->viewport_y, factors.y * data->vp->vheight);
+	horizontal = vec_scale(data->vp->viewport_x, factors.x * data->vp->vwidth);
+	res = vec_add(vertical, horizontal);
+	res = vec_add(res, data->cam->normal);
+	res = vec_add(res, data->cam->center);
+	ray.origin = data->cam->center;
+	ray.direction = vec_norm(vec_sub(res, ray.origin));
+	return (ray);
+} */
