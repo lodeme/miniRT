@@ -6,16 +6,16 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:27:28 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/04/30 15:31:19 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/03 13:20:31 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-char	*read_file(char *str);
-char	***split_parameters(char *file);
-void	check_objs(char ***content);
-void	append_line(char *line, char **file);
+static char	*read_file(char *str);
+static char	***split_parameters(char *file);
+static void	append_line(char *line, char **file);
+static void	external_free(char *file, char **split_lines, char *str);
 
 char	***extract_content(char *str)
 {
@@ -28,7 +28,7 @@ char	***extract_content(char *str)
 	return (objects);
 }
 
-char	*read_file(char *str)
+static char	*read_file(char *str)
 {
 	char	*file;
 	char	*line;
@@ -54,7 +54,7 @@ char	*read_file(char *str)
 	return (file);
 }
 
-void	append_line(char *line, char **file)
+static void	append_line(char *line, char **file)
 {
 	char *temp;
 
@@ -67,7 +67,7 @@ void	append_line(char *line, char **file)
 	free(line);
 }
 
-char	***split_parameters(char *file)
+static char	***split_parameters(char *file)
 {
 	char	**split_lines;
 	char	***split_properties;
@@ -76,21 +76,15 @@ char	***split_parameters(char *file)
 	split_lines = ft_split(file, '\n');
 	split_properties = malloc(ft_arrlen(split_lines) * sizeof(char **) + 1);
 	if (!split_properties)
-	{
-		free(file);
-		free_double_pointer(split_lines);
-		quit_parsing("Error: malloc() fail\n");
-	}
+		external_free(file, split_lines, "Error: malloc() fail\n");
 	i = -1;
 	while (split_lines[++i])
 	{
 		split_properties[i] = ft_split(split_lines[i], ' ');
 		if (!split_properties[i])
 		{
-			free(file);
-			free_double_pointer(split_lines);
 			free_triple_pointer(split_properties);
-			quit_parsing("Error: malloc() fail\n");
+			external_free(file, split_lines, "Error: malloc() fail\n");
 		}
 	}
 	split_properties[i] = NULL;
@@ -99,17 +93,10 @@ char	***split_parameters(char *file)
 	return (split_properties);
 }
 
-void	check_objs(char ***content)
+static void	external_free(char *file, char **split_lines, char *str)
 {
-	int	i;
-
-	i = -1;
-	while (content[++i])
-	{
-		if (!ft_strcmp(is_obj(content[i][0]), "error"))
-		{
-			free_triple_pointer(content);
-			quit_parsing("Error: invalid object detected\n");
-		}
-	}
+	free(file);
+	free_double_pointer(split_lines);
+	if (str)
+		quit_parsing(str);
 }

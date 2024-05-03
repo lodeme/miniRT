@@ -13,6 +13,7 @@ SRCS    :=	source/main.c \
 						source/pixel.c \
 						source/parser/parser.c \
 						source/parser/parser_utils.c \
+						source/parser/parser_utils2.c \
 						source/parser/parse_lights.c \
 						source/parser/parse_objects.c \
 						source/parser/parse_properties.c \

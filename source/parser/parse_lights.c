@@ -6,14 +6,14 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:11:24 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/04/30 17:36:53 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/03 13:13:36 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	get_intensity(double **var, char*** scene, int arr_i, int str_i);
-int	get_fov(double **var, char*** scene, int arr_i);
+static int	get_intensity(double **var, char*** scene, int arr_i, int str_i);
+static int	get_fov(double **var, char*** scene, int arr_i);
 
 void	parse_ambient(t_data *data, char*** scene, int i)
 {
@@ -85,7 +85,7 @@ void	parse_camera(t_data *data, char*** scene, int i)
 	ft_free_multiple(3, coordinates, normal, fov);
 }
 
-int	get_fov(double **var, char*** scene, int arr_i)
+static int	get_fov(double **var, char*** scene, int arr_i)
 {
 	char	**temp;
 	int		j;
@@ -112,7 +112,7 @@ int	get_fov(double **var, char*** scene, int arr_i)
 	return (1);
 }
 
-int	get_intensity(double **var, char*** scene, int arr_i, int str_i)
+static int	get_intensity(double **var, char*** scene, int arr_i, int str_i)
 {
 	char	**temp;
 	int		j;

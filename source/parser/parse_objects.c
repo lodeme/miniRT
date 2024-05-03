@@ -6,13 +6,13 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 11:50:04 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/04/30 17:32:11 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/03 13:14:00 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	load_struct_cylinder(t_data *data, double *coordinates, double *normal,\
+static void	load_struct_cylinder(t_data *data, double *coordinates, double *normal,\
 double *diameter, double *height, double *color, int index);
 
 void	parse_sphere(t_data *data, char*** scene, int i)
@@ -95,7 +95,7 @@ void	parse_cylinder(t_data *data, char*** scene, int i)
 	ft_free_multiple(5, coordinates, normal, diameter, height, color);
 }
 
-void	load_struct_cylinder(t_data *data, double *coordinates, double *normal,\
+static void	load_struct_cylinder(t_data *data, double *coordinates, double *normal,\
 double *diameter, double *height, double *color, int index)
 {
 	data->cylinders[index].center.x = coordinates[0];

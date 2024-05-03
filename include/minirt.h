@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:26:29 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/02 18:24:30 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/05/03 13:12:38 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,5 +166,6 @@ void	quit_parsing(char *str);
 void	check_file_extension(char *str);
 char	*is_obj(char *str);
 int		count_obj(char*** scene, char	*str);
+void	check_objs(char ***content);
 
 #endif
