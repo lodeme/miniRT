@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:26:29 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/03 16:26:47 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/06 17:08:05 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,10 +137,11 @@ double	vec_length(t_vec v);
 t_vec	vec_cross(t_vec v1, t_vec v2);
 double	vec_dot(t_vec v1, t_vec v2);
 t_vec	vec_norm(t_vec v);
-double	vec_div_num(t_vec v, double s);
+//double	vec_div_num(t_vec v, double s);
 t_vec	vec_at(double t, t_ray *ray);
 t_vec	vec_add_const(t_vec v, double c);
 double	vec_length_squared(t_vec v);
+double	vec_cos(t_vec v1, t_vec v2);
 
 // utils
 t_data	*init_data(char*** scene);
