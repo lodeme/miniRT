@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:55:03 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/07 12:53:26 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/07 14:27:44 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ t_col	pixel_color(t_data *data, t_ray *ray)
 						Nuno's shading version
 -----------------------------------------------------------------------------*/
 
-t_col	calc_diffuse_light(t_data *data, t_vec hit_point, t_vec normal)
+t_col	calc_diffuse_light(t_data *data, t_hit *obj)
 {
 	t_vec	light_dir;
 	double	attenuation;
@@ -93,36 +93,27 @@ t_col	calc_diffuse_light(t_data *data, t_vec hit_point, t_vec normal)
 	double	diffuse_ratio;
 	t_col	diff_color;
 
-	light_dir = vec_sub(data->lights->center, hit_point);
+	light_dir = vec_sub(data->lights->center, obj->hit_point);
 	attenuation = min(1.0, 90.0 / vec_length(light_dir));
-	cos_angle = vec_cos(normal, light_dir);
+	cos_angle = vec_cos(obj->normal, light_dir);
 	diffuse_ratio = data->lights->ratio * cos_angle * attenuation;
-	diff_color = col_scale(data->spheres[0].color, diffuse_ratio);
+	diff_color = col_scale(obj->color, diffuse_ratio);
 	return (diff_color);
 }
 
-t_col calc_test(t_data *data, t_vec hit_point, t_vec normal)
+t_col calc_test(t_data *data, t_hit *obj)
 {
 	t_col	color;
 
-	color = ambient(data->spheres[0].color, data->ambient->color, data->ambient->ratio);
-	color = col_add(color, calc_diffuse_light(data, hit_point, normal));
+	color = ambient(obj->color, data->ambient->color, data->ambient->ratio);
+	color = col_add(color, calc_diffuse_light(data, obj));
 	return color;
 }
 
-t_col	pixel_color(t_data *data, t_ray *ray)
+t_col	pixel_color(t_data *data, t_ray *ray, t_hit *obj)
 {
-	double	t;
-	t_vec	hit_point;
-	t_vec	normal;
-
-	t = hit_sphere(data->spheres[0].center, data->spheres[0].radius, ray);
-	if (t > 0.0)
-	{
-		hit_point = vec_add(ray->origin, vec_scale(ray->direction, t));
-		normal = vec_norm(vec_sub(hit_point, data->spheres[0].center));
-		return calc_test(data, hit_point, normal);
-	}
+	if (obj->t > 0.0)
+		return calc_test(data, obj);
 	else
 		//return ((t_col){0.0, 0.0, 0.0});
 		return sky_gradient(ray);

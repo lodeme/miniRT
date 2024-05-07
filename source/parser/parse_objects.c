@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 11:50:04 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/05/03 13:14:00 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/07 13:55:32 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	parse_sphere(t_data *data, char*** scene, int i)
 	data->spheres[index].color.r = color[0];
 	data->spheres[index].color.g = color[1];
 	data->spheres[index].color.b = color[2];
+	data->nb_spheres = index + 1;
 	index++;
 	ft_free_multiple(3, coordinates, diameter, color);
 }
@@ -65,6 +66,7 @@ void	parse_plane(t_data *data, char*** scene, int i)
 	data->planes[index].color.r = color[0];
 	data->planes[index].color.g = color[1];
 	data->planes[index].color.b = color[2];
+	data->nb_planes = index + 1;
 	index++;
 	ft_free_multiple(3, coordinates, normal, color);
 }
@@ -109,4 +111,5 @@ double *diameter, double *height, double *color, int index)
 	data->cylinders[index].color.r = color[0];
 	data->cylinders[index].color.g = color[1];
 	data->cylinders[index].color.b = color[2];
+	data->nb_cylinders = index + 1;
 }

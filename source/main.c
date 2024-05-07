@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:52:15 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/03 19:40:05 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/07 14:28:11 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	minirt(t_data *data)
 	int		y_index;
 	int		color;
 	t_ray	ray;
+	t_hit	obj;
 
 	y_index = -1;
 	while (++y_index < HEIGHT)
@@ -37,7 +38,8 @@ int	minirt(t_data *data)
 		while (++x_index < WIDTH)
 		{
 			ray = create_ray(data, x_index, y_index);
-			color = convert_color(pixel_color(data, &ray));
+			obj = closest_obj(data, &ray);
+			color = convert_color(pixel_color(data, &ray, &obj));
 			mlx_put_pixel(data->img, x_index, y_index, color);
 		}
 	}

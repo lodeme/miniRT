@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:26:29 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/06 17:08:05 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/07 14:26:31 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,22 @@ typedef struct s_data
 	t_sphere	*spheres;
 	t_plane		*planes;
 	t_cylinder	*cylinders;
+	int			nb_spheres;
+	int			nb_planes;
+	int			nb_cylinders;
 }	t_data;
+
+typedef struct s_hit
+{
+	char		*type;
+	double		t;
+	t_vec		hit_point;
+	t_vec		normal;
+	t_col		color;
+	t_sphere	*sphere;
+	t_plane		*plane;
+	t_cylinder	*cylinder;
+}	t_hit;
 
 // colors
 int		convert_color(t_col col);
@@ -117,15 +132,15 @@ t_col	new_col(double r, double g, double b);
 t_col	col_add(t_col v1, t_col v2);
 t_col	col_scale(t_col v, double s);
 t_col	col_mul(t_col v1, t_col v2);
-t_col	pixel_color(t_data *data, t_ray *ray);
 
 // pixel operations
 t_col	sky_gradient(t_ray *ray);
-t_col	pixel_color(t_data *data, t_ray *ray);
+t_col	pixel_color(t_data *data, t_ray *ray, t_hit *obj);
 
 // intersections
 double	hit_sphere(t_vec center, double radius, t_ray *ray);
 t_ray	create_ray(t_data *data, int x_index, int y_index);
+t_hit	closest_obj(t_data *data, t_ray *ray);
 
 // vector operations
 t_vec	new_vec(double x, double y, double z);
