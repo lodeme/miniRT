@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:55:03 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/07 09:44:25 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/07 12:53:26 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,10 @@ double min(double a, double b)
 	return b;
 }
 
+/* --------------------------------------------------------------------------
+						Our shading vesion
+-----------------------------------------------------------------------------*/
+
 /* t_col	calc_diffuse_light(t_data *data, t_vec hit_point, t_vec normal)
 {
 	t_vec	light_dir;
@@ -72,8 +76,14 @@ t_col	pixel_color(t_data *data, t_ray *ray)
 		return calc_diffuse_light(data, hit_point, normal);
 	}
 	else
+		//return ((t_col){0.0, 0.0, 0.0});
 		return sky_gradient(ray);
+}
 } */
+
+/* --------------------------------------------------------------------------
+						Nuno's shading version
+-----------------------------------------------------------------------------*/
 
 t_col	calc_diffuse_light(t_data *data, t_vec hit_point, t_vec normal)
 {
@@ -114,8 +124,8 @@ t_col	pixel_color(t_data *data, t_ray *ray)
 		return calc_test(data, hit_point, normal);
 	}
 	else
-		return ((t_col){0.0, 0.0, 0.0});
-		//return sky_gradient(ray);
+		//return ((t_col){0.0, 0.0, 0.0});
+		return sky_gradient(ray);
 }
 
 t_col	ambient(t_col object_color, t_col ambient_color, double ambient_ratio)
