@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 13:21:15 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/05/07 17:25:38 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/07 17:30:43 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,10 @@ static void	get_closest_sphere(t_data *data, t_ray *ray, t_hit *closest)
 static void	get_the_closest(t_ray *ray, t_hit *closest)
 {
 	if (closest->t == INFINITY)
+	{
 		closest->type = "none";
+		closest->t = -1;
+	}
 	closest->hit_point = vec_add(ray->origin, vec_scale(ray->direction, closest->t));
 	if (!ft_strcmp(closest->type, "sphere"))
 	{
