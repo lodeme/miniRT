@@ -1,7 +1,7 @@
 NAME = libft.a
 CC = cc
 AR = ar rcs
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -Wno-error=unused-result
 HDIR = .
 HFILE = $(HDIR)/libft.h
 OBJDIR := obj
