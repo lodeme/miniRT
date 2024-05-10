@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:26:29 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/07 14:26:31 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/10 16:34:16 by louis.demet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@
 # define FOCAL_LENGTH 1
 # define VIEWPORT_HEIGHT 2
 # define VIEWPORT_UP (t_vec){0, 1, 0}
+# define PI 3.1415926535f
+# define RADIANS(deg) ((deg * PI) / 180.0f)
+# define EPSILON 0.0001
+# define VEC_EPSILON (t_vec){EPSILON, EPSILON, EPSILON}
 
 # define SUCCESS 0
 # define FAILURE 1
@@ -27,6 +31,15 @@
 # include "MLX42/MLX42.h"
 # include <math.h>
 #include <fcntl.h>
+
+typedef struct s_equation
+{
+	double	a;
+	double	b;
+	double	c;
+	double	t1;
+	double	t2;
+}			t_equation;
 
 typedef struct s_vec
 {
@@ -57,12 +70,10 @@ typedef struct s_camera
 
 typedef struct s_viewport
 {
-	t_vec	viewport_x;
-	t_vec	viewport_y;
-	t_vec	viewport_z;
-	t_vec	pixel_dx;
-	t_vec	pixel_dy;
-	t_vec	pixel00_loc;
+	t_vec	up;
+	t_vec	right;
+	double	hview;
+	double	wview;
 }	t_viewport;
 
 typedef struct s_light
@@ -138,9 +149,10 @@ t_col	sky_gradient(t_ray *ray);
 t_col	pixel_color(t_data *data, t_ray *ray, t_hit *obj);
 
 // intersections
-double	hit_sphere(t_vec center, double radius, t_ray *ray);
-t_ray	create_ray(t_data *data, int x_index, int y_index);
+double	hit_sphere(t_sphere sp, t_ray *ray);
+t_ray	create_ray(t_data *data, t_vec factors);
 t_hit	closest_obj(t_data *data, t_ray *ray);
+t_vec	pixels_to_viewport(int x, int y);
 
 // vector operations
 t_vec	new_vec(double x, double y, double z);

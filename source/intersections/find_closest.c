@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_closest.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 13:21:15 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/05/07 17:30:43 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/10 16:32:35 by louis.demet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	get_closest_sphere(t_data *data, t_ray *ray, t_hit *closest)
 	i = -1;
 	while (++i < data->nb_spheres)
 	{
-		t = hit_sphere(data->spheres[i].center, data->spheres[i].radius, ray);
+		t = hit_sphere(data->spheres[i], ray);
 		if (t != -1 && t < closest->t)
 		{
 			closest->t = t;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:52:15 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/07 14:28:11 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:24:40 by louis.demet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	minirt(t_data *data)
 	int		color;
 	t_ray	ray;
 	t_hit	obj;
+	t_vec	factors;
 
 	y_index = -1;
 	while (++y_index < HEIGHT)
@@ -37,7 +38,8 @@ int	minirt(t_data *data)
 		x_index = -1;
 		while (++x_index < WIDTH)
 		{
-			ray = create_ray(data, x_index, y_index);
+			factors = pixels_to_viewport(x_index, y_index);
+			ray = create_ray(data, factors);
 			obj = closest_obj(data, &ray);
 			color = convert_color(pixel_color(data, &ray, &obj));
 			mlx_put_pixel(data->img, x_index, y_index, color);
