@@ -6,7 +6,7 @@
 /*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:26:29 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/10 16:34:16 by louis.demet      ###   ########.fr       */
+/*   Updated: 2024/05/10 16:53:28 by louis.demet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,9 @@ t_col	new_col(double r, double g, double b);
 t_col	col_add(t_col v1, t_col v2);
 t_col	col_scale(t_col v, double s);
 t_col	col_mul(t_col v1, t_col v2);
+t_col	clamp_color(t_col color);
+double max(double a, double b);
+double min(double a, double b);
 
 // pixel operations
 t_col	sky_gradient(t_ray *ray);

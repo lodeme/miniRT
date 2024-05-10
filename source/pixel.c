@@ -6,13 +6,14 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:55:03 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/07 14:27:44 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:37:13 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 t_col	ambient(t_col object_color, t_col ambient_color, double ambient_ratio);
+t_col	clamp_color(t_col color);
 
 t_col	sky_gradient(t_ray *ray)
 {
@@ -30,19 +31,7 @@ t_col	sky_gradient(t_ray *ray)
 	return (cadd);
 }
 
-double max(double a, double b)
-{
-	if (a > b)
-		return a;
-	return b;
-}
 
-double min(double a, double b)
-{
-	if (a < b)
-		return a;
-	return b;
-}
 
 /* --------------------------------------------------------------------------
 						Our shading vesion
@@ -107,6 +96,7 @@ t_col calc_test(t_data *data, t_hit *obj)
 
 	color = ambient(obj->color, data->ambient->color, data->ambient->ratio);
 	color = col_add(color, calc_diffuse_light(data, obj));
+	color = clamp_color(color);
 	return color;
 }
 
@@ -123,3 +113,5 @@ t_col	ambient(t_col object_color, t_col ambient_color, double ambient_ratio)
 {
 	return (col_scale(col_mul(object_color, ambient_color), ambient_ratio));
 }
+
+
