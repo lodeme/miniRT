@@ -1,5 +1,3 @@
 {
-	"files.associations": {
-		"minirt.h": "c"
-	}
+    "cmake.configureOnOpen": false
 }
