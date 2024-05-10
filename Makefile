@@ -9,7 +9,6 @@ SRCS    :=	source/main.c \
 						source/init.c \
 						source/vector_operations.c \
 						source/color_operations.c \
-						source/intersections.c \
 						source/pixel.c \
 						source/parser/parser.c \
 						source/parser/parser_utils.c \
@@ -18,7 +17,8 @@ SRCS    :=	source/main.c \
 						source/parser/parse_objects.c \
 						source/parser/parse_properties.c \
 						source/parser/read_file.c \
-						source/intersections/find_closest.c
+						source/intersections/find_closest.c \
+						source/intersections/hit_obj.c
 OBJ_DIR := obj
 SRC_DIRS := $(sort $(dir $(SRCS)))
 OBJ_DIRS := $(addprefix $(OBJ_DIR)/,$(SRC_DIRS))
