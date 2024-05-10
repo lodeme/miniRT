@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:26:29 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/02 18:24:30 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/05/10 16:53:28 by louis.demet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@
 # define FOCAL_LENGTH 1
 # define VIEWPORT_HEIGHT 2
 # define VIEWPORT_UP (t_vec){0, 1, 0}
+# define PI 3.1415926535f
+# define RADIANS(deg) ((deg * PI) / 180.0f)
+# define EPSILON 0.0001
+# define VEC_EPSILON (t_vec){EPSILON, EPSILON, EPSILON}
 
 # define SUCCESS 0
 # define FAILURE 1
@@ -27,6 +31,15 @@
 # include "MLX42/MLX42.h"
 # include <math.h>
 #include <fcntl.h>
+
+typedef struct s_equation
+{
+	double	a;
+	double	b;
+	double	c;
+	double	t1;
+	double	t2;
+}			t_equation;
 
 typedef struct s_vec
 {
@@ -57,12 +70,10 @@ typedef struct s_camera
 
 typedef struct s_viewport
 {
-	t_vec	viewport_x;
-	t_vec	viewport_y;
-	t_vec	viewport_z;
-	t_vec	pixel_dx;
-	t_vec	pixel_dy;
-	t_vec	pixel00_loc;
+	t_vec	up;
+	t_vec	right;
+	double	hview;
+	double	wview;
 }	t_viewport;
 
 typedef struct s_light
@@ -109,22 +120,42 @@ typedef struct s_data
 	t_sphere	*spheres;
 	t_plane		*planes;
 	t_cylinder	*cylinders;
+	int			nb_spheres;
+	int			nb_planes;
+	int			nb_cylinders;
 }	t_data;
+
+typedef struct s_hit
+{
+	char		*type;
+	double		t;
+	t_vec		hit_point;
+	t_vec		normal;
+	t_col		color;
+	t_sphere	*sphere;
+	t_plane		*plane;
+	t_cylinder	*cylinder;
+}	t_hit;
 
 // colors
 int		convert_color(t_col col);
 t_col	new_col(double r, double g, double b);
 t_col	col_add(t_col v1, t_col v2);
 t_col	col_scale(t_col v, double s);
-t_col	pixel_color(t_data *data, t_ray *ray);
+t_col	col_mul(t_col v1, t_col v2);
+t_col	clamp_color(t_col color);
+double max(double a, double b);
+double min(double a, double b);
 
 // pixel operations
 t_col	sky_gradient(t_ray *ray);
-t_col	pixel_color(t_data *data, t_ray *ray);
+t_col	pixel_color(t_data *data, t_ray *ray, t_hit *obj);
 
 // intersections
-double	hit_sphere(t_vec center, double radius, t_ray *ray);
-t_ray	create_ray(t_data *data, int x_index, int y_index);
+double	hit_sphere(t_sphere sp, t_ray *ray);
+t_ray	create_ray(t_data *data, t_vec factors);
+t_hit	closest_obj(t_data *data, t_ray *ray);
+t_vec	pixels_to_viewport(int x, int y);
 
 // vector operations
 t_vec	new_vec(double x, double y, double z);
@@ -136,10 +167,11 @@ double	vec_length(t_vec v);
 t_vec	vec_cross(t_vec v1, t_vec v2);
 double	vec_dot(t_vec v1, t_vec v2);
 t_vec	vec_norm(t_vec v);
-double	vec_div_num(t_vec v, double s);
+//double	vec_div_num(t_vec v, double s);
 t_vec	vec_at(double t, t_ray *ray);
 t_vec	vec_add_const(t_vec v, double c);
 double	vec_length_squared(t_vec v);
+double	vec_cos(t_vec v1, t_vec v2);
 
 // utils
 t_data	*init_data(char*** scene);
@@ -166,5 +198,6 @@ void	quit_parsing(char *str);
 void	check_file_extension(char *str);
 char	*is_obj(char *str);
 int		count_obj(char*** scene, char	*str);
+void	check_objs(char ***content);
 
 #endif

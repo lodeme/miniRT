@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   pixel.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:55:03 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/02 18:03:12 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:37:13 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+t_col	ambient(t_col object_color, t_col ambient_color, double ambient_ratio);
+t_col	clamp_color(t_col color);
 
 t_col	sky_gradient(t_ray *ray)
 {
@@ -29,17 +32,86 @@ t_col	sky_gradient(t_ray *ray)
 }
 
 
+
+/* --------------------------------------------------------------------------
+						Our shading vesion
+-----------------------------------------------------------------------------*/
+
+/* t_col	calc_diffuse_light(t_data *data, t_vec hit_point, t_vec normal)
+{
+	t_vec	light_dir;
+	double	lambertian;
+	t_col	light_color;
+	t_col	object_color;
+
+	light_dir = vec_norm(vec_sub(data->lights->center, hit_point));
+	lambertian = max(0.0, vec_dot(normal, light_dir));
+	light_color = data->lights->color;
+	object_color = data->spheres[0].color;
+	return col_scale(col_mul(object_color, light_color), lambertian);
+}
+
 t_col	pixel_color(t_data *data, t_ray *ray)
 {
 	double	t;
+	t_vec	hit_point;
+	t_vec	normal;
 
 	t = hit_sphere(data->spheres[0].center, data->spheres[0].radius, ray);
 	if (t > 0.0)
 	{
-		// calc_diffuse_color()
-		// add_ambient_and_diffuse_lights()
-		return (data->spheres[0].color);
+		hit_point = vec_add(ray->origin, vec_scale(ray->direction, t));
+		normal = vec_norm(vec_sub(hit_point, data->spheres[0].center));
+		return calc_diffuse_light(data, hit_point, normal);
 	}
 	else
-		return(sky_gradient(ray));
+		//return ((t_col){0.0, 0.0, 0.0});
+		return sky_gradient(ray);
 }
+} */
+
+/* --------------------------------------------------------------------------
+						Nuno's shading version
+-----------------------------------------------------------------------------*/
+
+t_col	calc_diffuse_light(t_data *data, t_hit *obj)
+{
+	t_vec	light_dir;
+	double	attenuation;
+	double	cos_angle;
+	double	diffuse_ratio;
+	t_col	diff_color;
+
+	light_dir = vec_sub(data->lights->center, obj->hit_point);
+	attenuation = min(1.0, 90.0 / vec_length(light_dir));
+	cos_angle = vec_cos(obj->normal, light_dir);
+	diffuse_ratio = data->lights->ratio * cos_angle * attenuation;
+	diff_color = col_scale(obj->color, diffuse_ratio);
+	return (diff_color);
+}
+
+t_col calc_test(t_data *data, t_hit *obj)
+{
+	t_col	color;
+
+	color = ambient(obj->color, data->ambient->color, data->ambient->ratio);
+	color = col_add(color, calc_diffuse_light(data, obj));
+	color = clamp_color(color);
+	return color;
+}
+
+t_col	pixel_color(t_data *data, t_ray *ray, t_hit *obj)
+{
+	if (obj->t > 0.0)
+		return calc_test(data, obj);
+	else
+		//return ((t_col){0.0, 0.0, 0.0});
+		return sky_gradient(ray);
+}
+
+t_col	ambient(t_col object_color, t_col ambient_color, double ambient_ratio)
+{
+	return (col_scale(col_mul(object_color, ambient_color), ambient_ratio));
+}
+
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 15:50:46 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/04/30 11:40:36 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:43:42 by louis.demet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,23 +61,27 @@ t_data	*init_data(char ***scene)
 	init_viewport(data);
 	return (data);
 }
-
 void	init_viewport(t_data *data)
 {
-	double		vheight;
-	double		vwidth;
-	t_vec		viewport_upper_left;
+	data->cam->normal = vec_add(data->cam->normal, VEC_EPSILON);
+	data->cam->normal = vec_norm(data->cam->normal);
+	data->vp->wview = tan(RADIANS(data->cam->fov / 2.0));
+	data->vp->hview = data->vp->wview / RATIO;
+	data->vp->right = vec_norm(vec_cross(data->cam->normal, VIEWPORT_UP));
+	data->vp->up = vec_norm(vec_cross(data->cam->normal, data->vp->right));
+	data->vp->right = vec_norm(vec_cross(data->cam->normal, data->vp->up));
+}
 
-	vheight = tan((data->cam->fov * M_PI / 180.0) / 2.0);
-	vwidth = vheight * RATIO;
-	data->vp->viewport_x = vec_norm(vec_cross(data->cam->normal, VIEWPORT_UP));
-	data->vp->viewport_y = vec_norm(vec_cross(data->cam->normal, data->vp->viewport_x));
-	data->vp->pixel_dx = vec_scale(data->vp->viewport_x, vwidth / WIDTH);
-	data->vp->pixel_dy = vec_scale(data->vp->viewport_y, vheight / HEIGHT);
-	viewport_upper_left = vec_sub(vec_sub(vec_sub(
-					data->cam->center, vec_scale(data->cam->normal, FOCAL_LENGTH)), \
-					vec_scale(data->vp->viewport_x, vwidth / 2.0)), \
-					vec_scale(data->vp->viewport_y, vheight / 2.0));
-	data->vp->pixel00_loc = vec_add(viewport_upper_left, \
-		vec_scale(vec_add(data->vp->pixel_dx, data->vp->pixel_dy), 0.5));
+t_vec	pixels_to_viewport(int x, int y)
+{
+	t_vec	converted;
+	double	width;
+	double	height;
+
+	width = WIDTH;
+	height = HEIGHT;
+	converted.x = ((2.0f * x) / width) - 1;
+	converted.y = ((2.0f * y) / height) - 1;
+	converted.z = 0;
+	return (converted);
 }
