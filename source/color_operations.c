@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 17:57:17 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/03 16:26:12 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:37:19 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,29 @@ t_col	col_scale(t_col v, double s)
 t_col	col_mul(t_col v1, t_col v2)
 {
 	return (new_col(v1.r * v2.r, v1.g * v2.g, v1.b * v2.b));
+}
+
+t_col	clamp_color(t_col color)
+{
+	color.r = min(1.0, color.r);
+	color.r = max(0.0, color.r);
+	color.g = min(1.0, color.g);
+	color.g = max(0.0, color.g);
+	color.b = min(1.0, color.b);
+	color.b = max(0.0, color.b);
+	return (color);
+}
+
+double max(double a, double b)
+{
+	if (a > b)
+		return a;
+	return b;
+}
+
+double min(double a, double b)
+{
+	if (a < b)
+		return a;
+	return b;
 }
