@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:11:24 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/05/03 19:39:07 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:26:13 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	parse_light(t_data *data, char*** scene, int i)
 		throw_error(data, "Error: (light) intensity incorrect\n");
 	if (!get_color(&color, scene, i, 3))
 		throw_error(data, "Error: (light) color incorrect\n");
-	data->lights[index].center.x = -coordinates[0];
+	data->lights[index].center.x = coordinates[0];
 	data->lights[index].center.y = coordinates[1];
 	data->lights[index].center.z = coordinates[2];
 	data->lights[index].ratio = *intensity;
@@ -75,7 +75,7 @@ void	parse_camera(t_data *data, char*** scene, int i)
 	if (!get_fov(&fov, scene, i))
 		throw_error(data, "Error: (camera) fov incorrect\n");
 	data->cam[index].center.x = coordinates[0];
-	data->cam[index].center.y = -1 * coordinates[1];
+	data->cam[index].center.y = coordinates[1];
 	data->cam[index].center.z = coordinates[2];
 	data->cam[index].normal.x = normal[0];
 	data->cam[index].normal.y = normal[1];

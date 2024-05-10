@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:26:06 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/10 13:29:36 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:28:37 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ double	hit_sphere(t_vec center, double radius, t_ray *ray)
 	{
 		t0 = (-b - sqrt(discriminant)) / (2.0 * a);
 		t1 = (-b + sqrt(discriminant)) / (2.0 * a);
-
 		if (t0 > 0)
 			return t0;
 		else if (t1 > 0)
@@ -80,8 +79,8 @@ t_ray	create_ray(t_data *data, int x_index, int y_index)
 	pixel_center = vec_add(vec_add(data->vp->pixel00_loc, \
 				vec_scale(data->vp->pixel_dx, x_index)), \
 				vec_scale(data->vp->pixel_dy, y_index));
-	ray_direction = vec_sub(pixel_center, data->cam->center);
-	ray = (t_ray){pixel_center, ray_direction};
+	ray_direction = vec_norm(vec_sub(pixel_center, data->cam->center));
+	ray = (t_ray){data->cam->center, ray_direction};
 	return (ray);
 }
 
