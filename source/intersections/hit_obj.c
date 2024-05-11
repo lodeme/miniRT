@@ -3,63 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   hit_obj.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
+/*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:26:06 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/10 16:53:51 by louis.demet      ###   ########.fr       */
+/*   Updated: 2024/05/11 15:14:20 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double	determinant(t_equation *eq)
-{
-	double	delta;
-
-	delta = pow(eq->b, 2) - (4 * eq->a * eq->c);
-	if (delta < 0)
-		return (-1);
-	return (delta);
-}
-
-double	solve(t_equation *eq)
-{
-	double	delta;
-
-	if (eq->a == 0.0 && eq->b != 0.0)
-	{
-		eq->t1 = -eq->c / eq->b;
-		return (0);
-	}
-	else
-	{
-		delta = determinant(eq);
-		if (delta < 0)
-			return (-1);
-		eq->t1 = (-eq->b - sqrt(delta)) / (2 * eq->a);
-		eq->t2 = (-eq->b + sqrt(delta)) / (2 * eq->a);
-		return (delta);
-	}
-}
 double	hit_sphere(t_sphere sp, t_ray *ray)
 {
-	t_vec		co;
-	t_equation	equation;
+	t_vec	oc;
+	t_equation	eq;
+	double	discriminant;
 
-	equation.t1 = -1.0f;
-	co = vec_sub(ray->origin, sp.center);
-	equation.a = vec_dot(ray->direction, ray->direction);
-	equation.b = 2.0f * vec_dot(co, ray->direction);
-	equation.c = vec_dot(co, co) - pow(sp.radius, 2);
-	if (solve(&equation) > 0 && \
-		(equation.t1 > EPSILON || equation.t2 > EPSILON))
+	oc = vec_sub(ray->origin, sp.center);
+	eq.a = vec_dot(ray->direction, ray->direction);
+	eq.b = 2.0 * vec_dot(oc, ray->direction);
+	eq.c = vec_dot(oc, oc) - pow(sp.radius, 2);
+	if (eq.a == 0.0 && eq.b != 0.0)
+		return (-1.0);
+	discriminant = pow(eq.b, 2) - 4 * eq.a * eq.c;
+	if (discriminant < 0)
+		return (-1.0);
+	else
 	{
-		if (equation.t1 > EPSILON)
-			return (equation.t1);
+		eq.t1 = (-eq.b - sqrt(discriminant)) / (2.0 * eq.a);
+		eq.t2 = (-eq.b + sqrt(discriminant)) / (2.0 * eq.a);
+		if (eq.t1 > 0)
+			return (eq.t1);
+		else if (eq.t2 > 0)
+			return (eq.t2);
 		else
-			return (equation.t2);
+			return (-1.0);
 	}
-	return (-1);
 }
 
 // t_ray	create_ray(t_data *data, int x_index, int y_index)
