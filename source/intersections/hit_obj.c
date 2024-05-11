@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:26:06 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/11 15:14:20 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/11 16:08:20 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 double	hit_sphere(t_sphere sp, t_ray *ray)
 {
-	t_vec	oc;
+	t_vec		oc;
 	t_equation	eq;
 	double	discriminant;
 
@@ -40,33 +40,19 @@ double	hit_sphere(t_sphere sp, t_ray *ray)
 	}
 }
 
-// t_ray	create_ray(t_data *data, int x_index, int y_index)
-// {
-// 	t_vec	pixel_center;
-// 	t_vec	ray_direction;
-// 	t_ray	ray;
-
-// 	pixel_center = vec_add(vec_add(data->vp->pixel00_loc, \
-// 				vec_scale(data->vp->pixel_dx, x_index)), \
-// 				vec_scale(data->vp->pixel_dy, y_index));
-// 	ray_direction = vec_sub(pixel_center, data->cam->center);
-// 	ray = (t_ray){pixel_center, ray_direction};
-// 	return (ray);
-// }
-
-t_ray	create_ray(t_data *data, t_vec factors)
+t_ray	create_ray(t_data *data, t_vec pixel)
 {
 	t_ray	ray;
 	t_vec	vertical;
 	t_vec	horizontal;
-	t_vec	res;
+	t_vec	unnormalized_direction;
 
-	vertical = vec_scale(data->vp->up, factors.y * data->vp->hview);
-	horizontal = vec_scale(data->vp->right, factors.x * data->vp->wview);
-	res = vec_add(vertical, horizontal);
-	res = vec_add(res, data->cam->normal);
-	res = vec_add(res, data->cam->center);
+	vertical = vec_scale(data->vp->up_vec, pixel.y * data->vp->vp_height);
+	horizontal = vec_scale(data->vp->right_vec, pixel.x * data->vp->vp_width);
+	unnormalized_direction = vec_add(vertical, horizontal);
+	unnormalized_direction = vec_add(unnormalized_direction, data->cam->normal);
+	unnormalized_direction = vec_add(unnormalized_direction, data->cam->center);
 	ray.origin = data->cam->center;
-	ray.direction = vec_norm(vec_sub(res, ray.origin));
+	ray.direction = vec_norm(vec_sub(unnormalized_direction, ray.origin));
 	return (ray);
 }

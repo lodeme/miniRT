@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
+/*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 15:50:46 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/10 15:43:42 by louis.demet      ###   ########.fr       */
+/*   Updated: 2024/05/11 16:00:33 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
 
 void	init_window(t_data *data)
 {
@@ -61,27 +60,35 @@ t_data	*init_data(char ***scene)
 	init_viewport(data);
 	return (data);
 }
+
 void	init_viewport(t_data *data)
 {
 	data->cam->normal = vec_add(data->cam->normal, VEC_EPSILON);
 	data->cam->normal = vec_norm(data->cam->normal);
-	data->vp->wview = tan(RADIANS(data->cam->fov / 2.0));
-	data->vp->hview = data->vp->wview / RATIO;
-	data->vp->right = vec_norm(vec_cross(data->cam->normal, VIEWPORT_UP));
-	data->vp->up = vec_norm(vec_cross(data->cam->normal, data->vp->right));
-	data->vp->right = vec_norm(vec_cross(data->cam->normal, data->vp->up));
+	data->vp->vp_width = tan(RADIANS(data->cam->fov / 2.0));
+	data->vp->vp_height = data->vp->vp_width / RATIO;
+	data->vp->right_vec = vec_norm(vec_cross(data->cam->normal, VIEWPORT_UP));
+	data->vp->up_vec = vec_norm(vec_cross(data->cam->normal, data->vp->right_vec));
+	data->vp->right_vec = vec_norm(vec_cross(data->cam->normal, data->vp->up_vec));
 }
 
+/**
+ * This function takes pixel coordinates as input and returns
+ * the corresponding viewport coordinates, by scaling the input coordinates
+ * from the range [0, WIDTH] or [0, HEIGHT] to the range [0, 2].
+ * Subtracting 1 then shifts the range to [-1, 1].
+ *
+ * @param x: The x-coordinate in pixel coordinates.
+ * @param y: The y-coordinate in pixel coordinates.
+
+ * @return: A point representing the normalized viewport coordinates.
+ */
 t_vec	pixels_to_viewport(int x, int y)
 {
-	t_vec	converted;
-	double	width;
-	double	height;
+	t_vec	pixel_location;
 
-	width = WIDTH;
-	height = HEIGHT;
-	converted.x = ((2.0f * x) / width) - 1;
-	converted.y = ((2.0f * y) / height) - 1;
-	converted.z = 0;
-	return (converted);
+	pixel_location.x = ((2.0 * x) / WIDTH) - 1;
+	pixel_location.y = ((2.0 * y) / HEIGHT) - 1;
+	pixel_location.z = 0;
+	return (pixel_location);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louis.demetz <louis.demetz@student.42.f    +#+  +:+       +#+        */
+/*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:26:29 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/10 16:53:28 by louis.demet      ###   ########.fr       */
+/*   Updated: 2024/05/11 16:06:32 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ typedef struct s_camera
 
 typedef struct s_viewport
 {
-	t_vec	up;
-	t_vec	right;
-	double	hview;
-	double	wview;
+	t_vec	up_vec;
+	t_vec	right_vec;
+	double	vp_width;
+	double	vp_height;
 }	t_viewport;
 
 typedef struct s_light
@@ -153,7 +153,7 @@ t_col	pixel_color(t_data *data, t_ray *ray, t_hit *obj);
 
 // intersections
 double	hit_sphere(t_sphere sp, t_ray *ray);
-t_ray	create_ray(t_data *data, t_vec factors);
+t_ray	create_ray(t_data *data, t_vec pixel);
 t_hit	closest_obj(t_data *data, t_ray *ray);
 t_vec	pixels_to_viewport(int x, int y);
 
