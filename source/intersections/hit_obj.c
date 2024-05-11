@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:26:06 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/11 16:08:20 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/11 18:28:30 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,26 @@ double	hit_sphere(t_sphere sp, t_ray *ray)
 		else
 			return (-1.0);
 	}
+}
+
+double	hit_plane(t_plane pl, t_ray *ray)
+{
+	t_vec		oc;
+	double		d_dot_v;
+	double		x_dot_v;
+	double		t;
+
+	oc = vec_sub(ray->origin, pl.center);
+	d_dot_v = vec_dot(ray->direction, pl.normal);
+	x_dot_v = vec_dot(oc, pl.normal);
+	if (d_dot_v != 0.0 && ((d_dot_v > 0 && x_dot_v < 0)
+		|| (d_dot_v < 0 && x_dot_v > 0)))
+	{
+		t = -x_dot_v / d_dot_v;
+		if (t > 0)
+			return (t);
+	}
+	return (-1.0);
 }
 
 t_ray	create_ray(t_data *data, t_vec pixel)
