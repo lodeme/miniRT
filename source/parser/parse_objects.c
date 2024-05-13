@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 11:50:04 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/05/13 15:42:30 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/13 22:29:05 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,8 @@ double *diameter, double *height, double *color, int index)
 	data->cylinders[index].color.g = color[1];
 	data->cylinders[index].color.b = color[2];
 	data->cylinders[index].cap1 = vec_add(data->cylinders[index].center, \
-	vec_scale(data->cylinders[index].normal, data->cylinders[index].height / 2));
-	data->cylinders[index].cap2 = vec_sub(data->cylinders[index].center, \
+	vec_scale(data->cylinders[index].normal, -data->cylinders[index].height / 2));
+	data->cylinders[index].cap2 = vec_add(data->cylinders[index].center, \
 	vec_scale(data->cylinders[index].normal, data->cylinders[index].height / 2));
 	data->nb_cylinders = index + 1;
 }

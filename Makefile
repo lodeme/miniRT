@@ -18,7 +18,8 @@ SRCS    :=	source/main.c \
 						source/parser/parse_properties.c \
 						source/parser/read_file.c \
 						source/intersections/find_closest.c \
-						source/intersections/hit_obj.c
+						source/intersections/hit_obj.c \
+						source/intersections/hit_obj2.c
 OBJ_DIR := obj
 SRC_DIRS := $(sort $(dir $(SRCS)))
 OBJ_DIRS := $(addprefix $(OBJ_DIR)/,$(SRC_DIRS))
