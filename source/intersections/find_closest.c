@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 13:21:15 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/05/11 17:34:57 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/13 22:19:38 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 static void	get_closest_sphere(t_data *data, t_ray *ray, t_hit *closest);
 static void	get_closest_plane(t_data *data, t_ray *ray, t_hit *closest);
-//static void	get_closest_cylinder(t_data *data, t_ray *ray, t_hit *closest);
+static void	get_closest_cylinder(t_data *data, t_ray *ray, t_hit *closest);
 static void	get_the_closest(t_ray *ray, t_hit *closest);
+t_vec	cylinder_normal(t_hit *closest, t_ray *ray);
 
 t_hit	closest_obj(t_data *data, t_ray *ray)
 {
@@ -24,7 +25,7 @@ t_hit	closest_obj(t_data *data, t_ray *ray)
 	closest.t = INFINITY;
 	get_closest_sphere(data, ray, &closest);
 	get_closest_plane(data, ray, &closest);
-	//get_closest_cylinder(data, ray, &closest);
+	get_closest_cylinder(data, ray, &closest);
 	get_the_closest(ray, &closest);
 	return (closest);
 }
@@ -65,7 +66,7 @@ static void	get_closest_plane(t_data *data, t_ray *ray, t_hit *closest)
 	}
 }
 
-/* static void	get_closest_cylinder(t_data *data, t_ray *ray, t_hit *closest)
+static void	get_closest_cylinder(t_data *data, t_ray *ray, t_hit *closest)
 {
 	int		i;
 	double	t;
@@ -73,8 +74,7 @@ static void	get_closest_plane(t_data *data, t_ray *ray, t_hit *closest)
 	i = -1;
 	while (++i < data->nb_cylinders)
 	{
-		t = hit_cylinder(data->cylinders[i].center, data->cylinders[i].normal,\
-			 data->cylinders[i].radius, data->cylinders[i].height, ray);
+		t = hit_cylinder(data->cylinders[i], ray, closest);
 		if (t != -1 && t < closest->t)
 		{
 			closest->t = t;
@@ -82,7 +82,7 @@ static void	get_closest_plane(t_data *data, t_ray *ray, t_hit *closest)
 			closest->cylinder = &data->cylinders[i];
 		}
 	}
-} */
+}
 
 static void	get_the_closest(t_ray *ray, t_hit *closest)
 {
@@ -102,9 +102,23 @@ static void	get_the_closest(t_ray *ray, t_hit *closest)
 		closest->normal = closest->plane->normal;
 		closest->color = closest->plane->color;
 	}
-/* 	else if (!ft_strcmp(closest->type, "cylinder"))
+	else if (!ft_strcmp(closest->type, "cylinder"))
 	{
-		closest->normal = vec_norm(vec_sub(closest->hit_point, closest->cylinder->center));
+		closest->normal = cylinder_normal(closest, ray);
 		closest->color = closest->cylinder->color;
-	} */
+	}
+}
+
+t_vec	cylinder_normal(t_hit *closest, t_ray *ray)
+{
+	t_vec	point;
+	t_vec	normal;
+
+	point = vec_at(closest->t, ray);
+	normal = vec_sub(point, closest->cy_axis_point);
+	if (vec_compare(closest->cy_axis_point, closest->cylinder->cap1))
+		normal = vec_scale(closest->cylinder->normal, -1);
+	else if (vec_compare(closest->cy_axis_point, closest->cylinder->cap2))
+		normal = closest->cylinder->normal;
+	return (normal);
 }

@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 16:45:38 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/06 17:07:33 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/13 22:17:34 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,9 @@ double	vec_cos(t_vec v1, t_vec v2)
 	dot = vec_dot(v1, v2);
 	lengths = vec_length(v1) * vec_length(v2);
 	return (dot / lengths);
+}
+
+bool	vec_compare(t_vec v1, t_vec v2)
+{
+	return (v1.x == v2.x && v1.y == v2.y && v1.z == v2.z);
 }

@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:26:29 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/11 17:33:12 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/13 22:17:49 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ typedef struct s_hit
 	t_sphere	*sphere;
 	t_plane		*plane;
 	t_cylinder	*cylinder;
+	t_vec		cy_axis_point;
 }	t_hit;
 
 // colors
@@ -154,6 +155,7 @@ t_col	pixel_color(t_data *data, t_ray *ray, t_hit *obj);
 // intersections
 double	hit_sphere(t_sphere sp, t_ray *ray);
 double	hit_plane(t_plane pl, t_ray *ray);
+double	hit_cylinder(t_cylinder cy, t_ray *ray, t_hit *closest);
 t_ray	create_ray(t_data *data, t_vec pixel);
 t_hit	closest_obj(t_data *data, t_ray *ray);
 t_vec	pixels_to_viewport(int x, int y);
@@ -173,6 +175,7 @@ t_vec	vec_at(double t, t_ray *ray);
 t_vec	vec_add_const(t_vec v, double c);
 double	vec_length_squared(t_vec v);
 double	vec_cos(t_vec v1, t_vec v2);
+bool	vec_compare(t_vec v1, t_vec v2);
 
 // utils
 t_data	*init_data(char*** scene);

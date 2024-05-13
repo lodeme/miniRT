@@ -1,5 +1,7 @@
 {
 	"files.associations": {
-		"minirt.h": "c"
+		"minirt.h": "c",
+		"cmath": "cpp",
+		"complex": "cpp"
 	}
 }
