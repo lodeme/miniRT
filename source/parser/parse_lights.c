@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:11:24 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/05/14 17:01:08 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:08:36 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ static int	get_fov(double **var, char ***scene, int arr_i)
 	int		j;
 	double	value;
 
-	if (!(temp = ft_split(scene[arr_i][3], ',')))
+	temp = ft_split(scene[arr_i][3], ',');
+	if (!(temp))
 		return (0);
 	if (ft_arrlen(temp) != 1)
 		return (free_double_pointer(temp), 0);
@@ -119,7 +120,8 @@ static int	get_intensity(double **var, char ***scene, int arr_i, int str_i)
 	int		j;
 	double	value;
 
-	if (!(temp = ft_split(scene[arr_i][str_i], ',')))
+	temp = ft_split(scene[arr_i][str_i], ',');
+	if (!(temp))
 		return (0);
 	if (ft_arrlen(temp) != 1)
 		return (free_double_pointer(temp), 0);
