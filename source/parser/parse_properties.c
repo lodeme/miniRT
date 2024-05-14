@@ -6,13 +6,13 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:27:35 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/05/14 17:04:56 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/14 18:40:58 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	get_color(double **var, char ***scene, int arr_i, int str_i)
+int	get_color(t_col *var, char ***scene, int arr_i, int str_i)
 {
 	char	**temp;
 	int		j;
@@ -23,24 +23,25 @@ int	get_color(double **var, char ***scene, int arr_i, int str_i)
 		return (0);
 	if (ft_arrlen(temp) != 3)
 		return (free_double_pointer(temp), 0);
-	*var = malloc(sizeof(double) * 3);
-	if (*var == NULL)
-		return (free_double_pointer(temp), 0);
 	j = -1;
 	while (temp[++j])
 	{
 		if (!ft_is_float(temp[j]))
-			return (free(*var), free_double_pointer(temp), 0);
+			return (free_double_pointer(temp), 0);
 		color = ft_atod(temp[j]);
 		if (color < 0 || color > 255)
-			return (free(*var), free_double_pointer(temp), 0);
-		(*var)[j] = color / 255.0;
+			return (free_double_pointer(temp), 0);
+		if (j == 0)
+			var->r = color / 255.0;
+		else if (j == 1)
+			var->g = color / 255.0;
+		else if (j == 2)
+			var->b = color / 255.0;
 	}
-	free_double_pointer(temp);
-	return (1);
+	return (free_double_pointer(temp), 1);
 }
 
-int	get_diameter(double **var, char ***scene, int arr_i, int str_i)
+int	get_diameter(double *var, char ***scene, int arr_i, int str_i)
 {
 	char	**temp;
 
@@ -51,15 +52,12 @@ int	get_diameter(double **var, char ***scene, int arr_i, int str_i)
 		return (free_double_pointer(temp), 0);
 	if (!ft_is_float(temp[0]))
 		return (free_double_pointer(temp), 0);
-	*var = malloc(sizeof(double));
-	if (*var == NULL)
-		return (free_double_pointer(temp), 0);
-	**var = ft_atod(temp[0]);
+	*var = ft_atod(temp[0]);
 	free_double_pointer(temp);
 	return (1);
 }
 
-int	get_coordinates(double **var, char ***scene, int arr_i)
+int	get_coordinates(t_vec *var, char ***scene, int arr_i)
 {
 	char	**temp;
 	int		j;
@@ -69,21 +67,23 @@ int	get_coordinates(double **var, char ***scene, int arr_i)
 		return (0);
 	if (ft_arrlen(temp) != 3)
 		return (free_double_pointer(temp), 0);
-	*var = malloc(sizeof(double) * 3);
-	if (*var == NULL)
-		return (free_double_pointer(temp), 0);
 	j = -1;
 	while (temp[++j])
 	{
 		if (!ft_is_float(temp[j]))
-			return (free(*var), free_double_pointer(temp), 0);
-		(*var)[j] = ft_atod(temp[j]);
+			return (free_double_pointer(temp), 0);
+		if (j == 0)
+			var->x = ft_atod(temp[j]);
+		else if (j == 1)
+			var->y = ft_atod(temp[j]);
+		else if (j == 2)
+			var->z = ft_atod(temp[j]);
 	}
 	free_double_pointer(temp);
 	return (1);
 }
 
-int	get_normal(double **var, char ***scene, int arr_i)
+int	get_normal(t_vec *var, char ***scene, int arr_i)
 {
 	char	**temp;
 	int		j;
@@ -94,24 +94,25 @@ int	get_normal(double **var, char ***scene, int arr_i)
 		return (0);
 	if (ft_arrlen(temp) != 3)
 		return (free_double_pointer(temp), 0);
-	*var = malloc(sizeof(double) * 3);
-	if (*var == NULL)
-		return (free_double_pointer(temp), 0);
 	j = -1;
 	while (temp[++j])
 	{
 		if (!ft_is_float(temp[j]))
-			return (free(*var), free_double_pointer(temp), 0);
+			return (free_double_pointer(temp), 0);
 		value = ft_atod(temp[j]);
 		if (value < -1 || value > 1)
-			return (free(*var), free_double_pointer(temp), 0);
-		(*var)[j] = value;
+			return (free_double_pointer(temp), 0);
+		if (j == 0)
+			var->x = value;
+		else if (j == 1)
+			var->y = value;
+		else if (j == 2)
+			var->z = value;
 	}
-	free_double_pointer(temp);
-	return (1);
+	return (free_double_pointer(temp), 1);
 }
 
-int	get_height(double **var, char ***scene, int arr_i)
+int	get_height(double *var, char ***scene, int arr_i)
 {
 	char	**temp;
 
@@ -122,10 +123,7 @@ int	get_height(double **var, char ***scene, int arr_i)
 		return (free_double_pointer(temp), 0);
 	if (!ft_is_float(temp[0]))
 		return (free_double_pointer(temp), 0);
-	*var = malloc(sizeof(double));
-	if (*var == NULL)
-		return (free_double_pointer(temp), 0);
-	**var = ft_atod(temp[0]);
+	*var = ft_atod(temp[0]);
 	free_double_pointer(temp);
 	return (1);
 }
