@@ -1,0 +1,18 @@
+# Ambient lighting: Ratio, Color
+A      0.1                                    255,255,255
+
+# Camera: Coordinates, Normal, FOV
+C      0,1,5      0,0,-1        60
+
+# Light: Coordinates, Brightness, Color
+L      0,5,0                    1        255,255,255
+
+# Sphere: Coordinates, Diameter, Color
+sp     0,1,0                   1        0,0,255
+
+# Plane: Coordinates, Normal, Color
+pl    0,-1,0        0,1,0                     255,255,255
+
+# Cylinder: Coordinates, Normal of axis, Diameter, Height, color
+cy     2,0,2   0,1,0         1   3     100,0,0
+cy    -2,0,2   0,1,0         1   3     0,100,0
