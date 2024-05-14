@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:26:29 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/14 14:52:19 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/14 15:43:50 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ typedef struct s_data
 	int			nb_spheres;
 	int			nb_planes;
 	int			nb_cylinders;
+	int			nb_lights;
 }	t_data;
 
 typedef struct s_hit

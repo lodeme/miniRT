@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:11:24 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/05/03 19:39:07 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/14 15:44:45 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	parse_light(t_data *data, char*** scene, int i)
 	data->lights[index].color.r = color[0];
 	data->lights[index].color.g = color[1];
 	data->lights[index].color.b = color[2];
+	data->nb_lights = index + 1;
 	index++;
 	ft_free_multiple(3, coordinates, intensity, color);
 }
