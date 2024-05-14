@@ -6,12 +6,12 @@
             "type": "lldb",
             "request": "launch",
             "program": "${workspaceFolder}/minirt",
+            // "args": ["test_files/spheres.rt"],
             "args": ["test_files/one_sphere.rt"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
             "MIMode": "lldb",
-            "miDebuggerPath": "/nix/store/y3fy0mcv3xdn05mpnrd6cgn6q0a4qdp2-lldb-17.0.6/bin/lldb",
             "setupCommands": [
                 {
                     "description": "Disable stdout buffering",
