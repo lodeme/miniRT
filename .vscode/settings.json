@@ -1,3 +1,7 @@
 {
-    "cmake.configureOnOpen": false
+	"files.associations": {
+		"minirt.h": "c",
+		"cmath": "cpp",
+		"complex": "cpp"
+	}
 }

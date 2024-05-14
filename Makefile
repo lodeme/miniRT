@@ -7,10 +7,13 @@ LIBS    := $(LIBMLX)/build/libmlx42.a $(LIBFT)/libft.a -ldl -L/opt/homebrew/lib 
 SRCS    :=	source/main.c \
 						source/free.c \
 						source/init.c \
-						source/vector_operations.c \
+						source/vec_operations.c \
+						source/vec_operations2.c \
+						source/vec_operations3.c \
 						source/color_operations.c \
-						source/intersections.c \
-						source/pixel.c \
+						source/color_operations2.c \
+						source/pixel_color.c \
+						source/shadow.c \
 						source/parser/parser.c \
 						source/parser/parser_utils.c \
 						source/parser/parser_utils2.c \
@@ -18,7 +21,9 @@ SRCS    :=	source/main.c \
 						source/parser/parse_objects.c \
 						source/parser/parse_properties.c \
 						source/parser/read_file.c \
-						source/intersections/find_closest.c
+						source/intersections/find_closest.c \
+						source/intersections/hit_obj.c \
+						source/intersections/hit_obj2.c
 OBJ_DIR := obj
 SRC_DIRS := $(sort $(dir $(SRCS)))
 OBJ_DIRS := $(addprefix $(OBJ_DIR)/,$(SRC_DIRS))
