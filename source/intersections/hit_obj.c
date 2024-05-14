@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:26:06 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/13 22:23:30 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:13:13 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ double	hit_sphere(t_sphere sp, t_ray *ray)
 	{
 		eq.t1 = (-eq.b - sqrt(discriminant)) / (2.0 * eq.a);
 		eq.t2 = (-eq.b + sqrt(discriminant)) / (2.0 * eq.a);
-		if (eq.t1 > 0)
+		if (eq.t1 > EPSILON)
 			return (eq.t1);
-		else if (eq.t2 > 0)
+		else if (eq.t2 > EPSILON)
 			return (eq.t2);
 		else
 			return (-1.0);
@@ -54,7 +54,7 @@ double	hit_plane(t_plane pl, t_ray *ray)
 		|| (d_dot_v < 0 && x_dot_v > 0)))
 	{
 		t = -x_dot_v / d_dot_v;
-		if (t > 0)
+		if (t > EPSILON)
 			return (t);
 	}
 	return (-1.0);
