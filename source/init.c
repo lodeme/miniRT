@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 15:50:46 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/11 16:00:33 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:18:24 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	init_scene(t_data *data, char ***scene)
 	data->cylinders = malloc(sizeof(t_cylinder) * count_obj(scene, "cy"));
 	if (!data->cylinders)
 		throw_error(data, "Error: malloc() fail\n");
+	data->nb_lights = 0;
 }
 
 t_data	*init_data(char ***scene)

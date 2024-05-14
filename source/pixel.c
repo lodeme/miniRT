@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:55:03 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/14 16:04:06 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:20:03 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static t_col	calc_color(t_data *data, t_hit *obj)
 	t_col	color;
 
 	color = ambient(obj->color, data->ambient->color, data->ambient->ratio);
-	if (data->nb_lights > 0 && !shadow(data, obj)) // might cause issues if no light is parsed
+	if (data->nb_lights > 0 && !shadow(data, obj))
 		color = col_add(color, calc_diffuse_light(data, obj));
 	color = clamp_color(color);
 	return (color);
