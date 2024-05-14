@@ -6,13 +6,13 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 22:22:52 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/05/13 22:32:01 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/14 13:19:45 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static double	verify_intersections(t_cylinder *cy, t_ray *ray,t_equation *equation, double *t, t_hit *closest);
+static double	verify_intersections(t_cylinder *cy, t_ray *ray,t_equation *equation, t_hit *closest);
 static void		check_caps(t_cylinder *cy, t_vec cap, t_ray *ray, double eq_t, double *t, t_hit *closest);
 static void		check_walls(t_cylinder *cy, t_ray *ray, double eq_t, double *t, t_hit *closest);
 static double	cap_intersection(t_cylinder *cy, t_ray *ray, t_vec cap);
@@ -40,27 +40,28 @@ double	hit_cylinder(t_cylinder cy, t_ray *ray, t_hit *closest)
 	eq.t2 = (-eq.b + sqrt(discriminant)) / (2 * eq.a);
 	if (eq.t1 <= 0 && eq.t2 <= 0)
 		return (-1);
-	verify_intersections(&cy, ray, &eq, &t, closest);
+	t = verify_intersections(&cy, ray, &eq, closest);
 	if (t < 0.0f)
 		return (-1);
 	return (t);
 }
 
-static double	verify_intersections(t_cylinder *cy, t_ray *ray,t_equation *equation, double *t, t_hit *closest)
+static double	verify_intersections(t_cylinder *cy, t_ray *ray,t_equation *equation, t_hit *closest)
 {
 	double	t3;
 	double	t4;
+	double	t;
 
 	t3 = cap_intersection(cy, ray, cy->cap1);
 	t4 = cap_intersection(cy, ray, cy->cap2);
-	*t = (double)INFINITY;
-	check_walls(cy, ray, equation->t1, t, closest);
-	check_walls(cy, ray, equation->t2, t, closest);
-	check_caps(cy, cy->cap1, ray, t3, t, closest);
-	check_caps(cy, cy->cap2, ray, t4, t, closest);
-	if (*t == INFINITY)
+	t = (double)INFINITY;
+	check_walls(cy, ray, equation->t1, &t, closest);
+	check_walls(cy, ray, equation->t2, &t, closest);
+	check_caps(cy, cy->cap1, ray, t3, &t, closest);
+	check_caps(cy, cy->cap2, ray, t4, &t, closest);
+	if (t == INFINITY)
 		return (0);
-	return (*t);
+	return (t);
 }
 
 static void	check_caps(t_cylinder *cy, t_vec cap, t_ray *ray, double eq_t, double *t, t_hit *closest)

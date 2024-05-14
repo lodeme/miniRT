@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 11:50:04 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/05/13 22:29:05 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/14 13:22:58 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	parse_plane(t_data *data, char*** scene, int i)
 	data->planes[index].center.y = coordinates[1];
 	data->planes[index].center.z = coordinates[2];
 	data->planes[index].normal.x = normal[0];
-	data->planes[index].normal.y = normal[1]; //not sure this needs to be inverted
+	data->planes[index].normal.y = normal[1];
 	data->planes[index].normal.z = normal[2];
 	data->planes[index].color.r = color[0];
 	data->planes[index].color.g = color[1];
@@ -104,13 +104,14 @@ double *diameter, double *height, double *color, int index)
 	data->cylinders[index].center.y = coordinates[1];
 	data->cylinders[index].center.z = coordinates[2];
 	data->cylinders[index].normal.x = normal[0];
-	data->cylinders[index].normal.y = normal[1]; //not sure this needs to be inverted
+	data->cylinders[index].normal.y = normal[1];
 	data->cylinders[index].normal.z = normal[2];
 	data->cylinders[index].radius = *diameter / 2;
 	data->cylinders[index].height = *height;
 	data->cylinders[index].color.r = color[0];
 	data->cylinders[index].color.g = color[1];
 	data->cylinders[index].color.b = color[2];
+	data->cylinders[index].normal = vec_norm(data->cylinders[index].normal);
 	data->cylinders[index].cap1 = vec_add(data->cylinders[index].center, \
 	vec_scale(data->cylinders[index].normal, -data->cylinders[index].height / 2));
 	data->cylinders[index].cap2 = vec_add(data->cylinders[index].center, \
