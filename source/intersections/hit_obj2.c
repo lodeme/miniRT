@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 22:22:52 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/05/14 13:19:45 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/14 14:23:19 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static double	verify_intersections(t_cylinder *cy, t_ray *ray,t_equation *equati
 	check_caps(cy, cy->cap1, ray, t3, &t, closest);
 	check_caps(cy, cy->cap2, ray, t4, &t, closest);
 	if (t == INFINITY)
-		return (0);
+		return (-1);
 	return (t);
 }
 
