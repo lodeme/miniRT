@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 11:50:04 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/05/14 13:22:58 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:59:53 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	load_struct_cylinder(t_data *data, double *coordinates, double *normal,\
 double *diameter, double *height, double *color, int index);
 
-void	parse_sphere(t_data *data, char*** scene, int i)
+void	parse_sphere(t_data *data, char ***scene, int i)
 {
 	static int	index;
 	double		*coordinates;
@@ -25,7 +25,7 @@ void	parse_sphere(t_data *data, char*** scene, int i)
 	if (ft_arrlen(scene[i]) != 4)
 		throw_error(data, "Error: sphere must contain 3 parameters\n");
 	if (!get_coordinates(&coordinates, scene, i))
-		throw_error(data,"Error: (sphere) coordinates incorrect\n");
+		throw_error(data, "Error: (sphere) coordinates incorrect\n");
 	if (!get_diameter(&diameter, scene, i, 2))
 		throw_error(data, "Error: (sphere) diameter incorrect\n");
 	if (!get_color(&color, scene, i, 3))
@@ -42,7 +42,7 @@ void	parse_sphere(t_data *data, char*** scene, int i)
 	ft_free_multiple(3, coordinates, diameter, color);
 }
 
-void	parse_plane(t_data *data, char*** scene, int i)
+void	parse_plane(t_data *data, char ***scene, int i)
 {
 	static int	index;
 	double		*coordinates;
@@ -52,7 +52,7 @@ void	parse_plane(t_data *data, char*** scene, int i)
 	if (ft_arrlen(scene[i]) != 4)
 		throw_error(data, "Error: plane must contain 3 parameters\n");
 	if (!get_coordinates(&coordinates, scene, i))
-		throw_error(data,"Error: (plane) coordinates incorrect\n");
+		throw_error(data, "Error: (plane) coordinates incorrect\n");
 	if (!get_normal(&normal, scene, i))
 		throw_error(data, "Error: (plane) normal incorrect\n");
 	if (!get_color(&color, scene, i, 3))
@@ -71,7 +71,7 @@ void	parse_plane(t_data *data, char*** scene, int i)
 	ft_free_multiple(3, coordinates, normal, color);
 }
 
-void	parse_cylinder(t_data *data, char*** scene, int i)
+void	parse_cylinder(t_data *data, char ***scene, int i)
 {
 	static int	index;
 	double		*coordinates;
@@ -97,8 +97,8 @@ void	parse_cylinder(t_data *data, char*** scene, int i)
 	ft_free_multiple(5, coordinates, normal, diameter, height, color);
 }
 
-static void	load_struct_cylinder(t_data *data, double *coordinates, double *normal,\
-double *diameter, double *height, double *color, int index)
+static void	load_struct_cylinder(t_data *data, double *coordinates, \
+	double *normal, double *diameter, double *height, double *color, int index)
 {
 	data->cylinders[index].center.x = coordinates[0];
 	data->cylinders[index].center.y = coordinates[1];
@@ -113,8 +113,10 @@ double *diameter, double *height, double *color, int index)
 	data->cylinders[index].color.b = color[2];
 	data->cylinders[index].normal = vec_norm(data->cylinders[index].normal);
 	data->cylinders[index].cap1 = vec_add(data->cylinders[index].center, \
-	vec_scale(data->cylinders[index].normal, -data->cylinders[index].height / 2));
+	vec_scale(data->cylinders[index].normal, \
+				-data->cylinders[index].height / 2));
 	data->cylinders[index].cap2 = vec_add(data->cylinders[index].center, \
-	vec_scale(data->cylinders[index].normal, data->cylinders[index].height / 2));
+	vec_scale(data->cylinders[index].normal, \
+				data->cylinders[index].height / 2));
 	data->nb_cylinders = index + 1;
 }

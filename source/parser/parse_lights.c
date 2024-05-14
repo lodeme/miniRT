@@ -6,16 +6,16 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:11:24 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/05/14 15:44:45 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:01:08 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static int	get_intensity(double **var, char*** scene, int arr_i, int str_i);
-static int	get_fov(double **var, char*** scene, int arr_i);
+static int	get_intensity(double **var, char ***scene, int arr_i, int str_i);
+static int	get_fov(double **var, char ***scene, int arr_i);
 
-void	parse_ambient(t_data *data, char*** scene, int i)
+void	parse_ambient(t_data *data, char ***scene, int i)
 {
 	double	*color;
 	double	*intensity;
@@ -33,7 +33,7 @@ void	parse_ambient(t_data *data, char*** scene, int i)
 	ft_free_multiple(2, color, intensity);
 }
 
-void	parse_light(t_data *data, char*** scene, int i)
+void	parse_light(t_data *data, char ***scene, int i)
 {
 	static int	index;
 	double		*coordinates;
@@ -60,7 +60,7 @@ void	parse_light(t_data *data, char*** scene, int i)
 	ft_free_multiple(3, coordinates, intensity, color);
 }
 
-void	parse_camera(t_data *data, char*** scene, int i)
+void	parse_camera(t_data *data, char ***scene, int i)
 {
 	static int	index;
 	double		*coordinates;
@@ -86,7 +86,7 @@ void	parse_camera(t_data *data, char*** scene, int i)
 	ft_free_multiple(3, coordinates, normal, fov);
 }
 
-static int	get_fov(double **var, char*** scene, int arr_i)
+static int	get_fov(double **var, char ***scene, int arr_i)
 {
 	char	**temp;
 	int		j;
@@ -113,7 +113,7 @@ static int	get_fov(double **var, char*** scene, int arr_i)
 	return (1);
 }
 
-static int	get_intensity(double **var, char*** scene, int arr_i, int str_i)
+static int	get_intensity(double **var, char ***scene, int arr_i, int str_i)
 {
 	char	**temp;
 	int		j;

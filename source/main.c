@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:52:15 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/11 16:21:49 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:33:54 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,3 @@ int	main(int argc, char **argv)
 	}
 	return (ft_putstr_fd("Error: invalid argument amount\n ", 2), 1);
 }
-

@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:26:29 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/14 15:43:50 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:55:30 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,11 +151,13 @@ double	min(double a, double b);
 
 // pixel operations
 t_col	pixel_color(t_data *data, t_ray *ray, t_hit *obj);
+bool	shadow(t_data *data, t_hit *obj);
 
 // intersections
 double	hit_sphere(t_sphere sp, t_ray *ray);
 double	hit_plane(t_plane pl, t_ray *ray);
 double	hit_cylinder(t_cylinder cy, t_ray *ray, t_hit *closest);
+t_vec	cylinder_normal(t_hit *closest, t_ray *ray);
 t_ray	create_ray(t_data *data, t_vec pixel);
 t_hit	closest_obj(t_data *data, t_ray *ray);
 t_vec	pixels_to_viewport(int x, int y);

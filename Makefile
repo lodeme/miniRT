@@ -7,9 +7,13 @@ LIBS    := $(LIBMLX)/build/libmlx42.a $(LIBFT)/libft.a -ldl -L/opt/homebrew/lib 
 SRCS    :=	source/main.c \
 						source/free.c \
 						source/init.c \
-						source/vector_operations.c \
+						source/vec_operations.c \
+						source/vec_operations2.c \
+						source/vec_operations3.c \
 						source/color_operations.c \
-						source/pixel.c \
+						source/color_operations2.c \
+						source/pixel_color.c \
+						source/shadow.c \
 						source/parser/parser.c \
 						source/parser/parser_utils.c \
 						source/parser/parser_utils2.c \

@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 22:22:52 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/05/14 14:23:19 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:52:37 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ double	hit_cylinder(t_cylinder cy, t_ray *ray, t_hit *closest)
 	return (t);
 }
 
-static double	verify_intersections(t_cylinder *cy, t_ray *ray,t_equation *equation, t_hit *closest)
+static double	verify_intersections(t_cylinder *cy, t_ray *ray, \
+							t_equation *equation, t_hit *closest)
 {
 	double	t3;
 	double	t4;
@@ -95,10 +96,10 @@ static void	check_walls(t_cylinder *cy, t_ray *ray, double eq_t, double *t, t_hi
 	m -= EPSILON;
 	if (m >= 0 && m <= cy->height && len <= cy->radius \
 		&& eq_t > EPSILON && eq_t < *t)
-		{
-			*t = eq_t;
-			closest->cy_axis_point = a;
-		}
+	{
+		*t = eq_t;
+		closest->cy_axis_point = a;
+	}
 }
 
 static double	cap_intersection(t_cylinder *cy, t_ray *ray, t_vec cap)

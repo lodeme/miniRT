@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 15:50:46 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/14 16:18:24 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:33:42 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,10 @@ void	init_viewport(t_data *data)
 	data->vp->vp_width = tan(RADIANS(data->cam->fov / 2.0));
 	data->vp->vp_height = data->vp->vp_width / RATIO;
 	data->vp->right_vec = vec_norm(vec_cross(data->cam->normal, VIEWPORT_UP));
-	data->vp->up_vec = vec_norm(vec_cross(data->cam->normal, data->vp->right_vec));
-	data->vp->right_vec = vec_norm(vec_cross(data->cam->normal, data->vp->up_vec));
+	data->vp->up_vec = vec_norm(vec_cross(data->cam->normal, \
+								data->vp->right_vec));
+	data->vp->right_vec = vec_norm(vec_cross(data->cam->normal, \
+									data->vp->up_vec));
 }
 
 /**

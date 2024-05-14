@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:27:28 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/05/03 13:20:31 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:56:48 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static char	*read_file(char *str)
 
 static void	append_line(char *line, char **file)
 {
-	char *temp;
+	char	*temp;
 
 	if (ft_strncmp(line, "\n", 1) && ft_strncmp(line, "#", 1))
 	{
