@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:26:29 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/13 22:17:49 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/14 14:52:19 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,6 @@ double	max(double a, double b);
 double	min(double a, double b);
 
 // pixel operations
-t_col	sky_gradient(t_ray *ray);
 t_col	pixel_color(t_data *data, t_ray *ray, t_hit *obj);
 
 // intersections

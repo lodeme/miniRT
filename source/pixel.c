@@ -6,16 +6,27 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:55:03 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/13 15:35:28 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/14 14:58:42 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_col	ambient(t_col object_color, t_col ambient_color, double ambient_ratio);
-t_col	clamp_color(t_col color);
+static t_col	ambient(t_col object_color, t_col ambient_color, double ambient_ratio);
+static t_col	calc_test(t_data *data, t_hit *obj);
+static t_col	sky_gradient(t_ray *ray);
+static t_col	calc_diffuse_light(t_data *scene_data, t_hit *obj);
 
-t_col	sky_gradient(t_ray *ray)
+t_col	pixel_color(t_data *data, t_ray *ray, t_hit *obj)
+{
+	if (obj->t > 0.0)
+		return calc_test(data, obj);
+	else
+		//return ((t_col){0.0, 0.0, 0.0});
+		return sky_gradient(ray);
+}
+
+static	t_col	sky_gradient(t_ray *ray)
 {
 	t_vec	unit_direction;
 	double	a;
@@ -31,44 +42,23 @@ t_col	sky_gradient(t_ray *ray)
 	return (cadd);
 }
 
-/* --------------------------------------------------------------------------
-						Our shading vesion (IT IS WORKING)
------------------------------------------------------------------------------*/
-
-/* t_col	calc_diffuse_light(t_data *data, t_hit *obj)
+static t_col	calc_diffuse_light(t_data *scene_data, t_hit *obj)
 {
-	t_vec	light_dir;
-	double	lambertian;
-	t_col	light_color;
+	t_vec	light_direction;
+	double	light_attenuation;
+	double	angle_cosine;
+	double	diffuse_light_intensity;
+	t_col	diffuse_color;
 
-	light_dir = vec_norm(vec_sub(data->lights->center, obj->hit_point));
-	lambertian = max(0.0, vec_dot(obj->normal, light_dir));
-	light_color = data->lights->color;
-	return (col_scale(col_mul(obj->color, light_color), lambertian));
-}*/
-
-/* --------------------------------------------------------------------------
-						Nuno's shading version
------------------------------------------------------------------------------*/
-
-t_col	calc_diffuse_light(t_data *data, t_hit *obj)
-{
-	t_vec	light_dir;
-	double	attenuation;
-	double	cos_angle;
-	double	diffuse_ratio;
-	t_col	diff_color;
-
-	light_dir = vec_sub(data->lights->center, obj->hit_point);
-	attenuation = min(1.0, 90.0 / vec_length(light_dir));
-	cos_angle = vec_cos(obj->normal, light_dir);
-	diffuse_ratio = data->lights->ratio * cos_angle * attenuation;
-	diff_color = col_scale(obj->color, diffuse_ratio);
-	return (diff_color);
+	light_direction = vec_sub(scene_data->lights->center, obj->hit_point);
+	light_attenuation = min(1.0, 90.0 / vec_length(light_direction));
+	angle_cosine = vec_cos(obj->normal, light_direction);
+	diffuse_light_intensity = scene_data->lights->ratio * angle_cosine * light_attenuation;
+	diffuse_color = col_scale(obj->color, diffuse_light_intensity);
+	return (diffuse_color);
 }
-/* ------------------------- Main Code -------------------------------- */
 
-t_col calc_test(t_data *data, t_hit *obj)
+static t_col	calc_test(t_data *data, t_hit *obj)
 {
 	t_col	color;
 
@@ -78,84 +68,7 @@ t_col calc_test(t_data *data, t_hit *obj)
 	return color;
 }
 
-t_col	pixel_color(t_data *data, t_ray *ray, t_hit *obj)
-{
-	if (obj->t > 0.0)
-		return calc_test(data, obj);
-	else
-		//return ((t_col){0.0, 0.0, 0.0});
-		return sky_gradient(ray);
-}
-
-t_col	ambient(t_col object_color, t_col ambient_color, double ambient_ratio)
+static t_col	ambient(t_col object_color, t_col ambient_color, double ambient_ratio)
 {
 	return (col_scale(col_mul(object_color, ambient_color), ambient_ratio));
 }
-
-/* -----------------------------------------------------------------------
-							Phong Model (specular)
-------------------------------------------------------------------------- */
-/* t_vec reflect(t_vec v, t_vec n) {
-	return vec_sub(v, vec_scale(n, 2 * vec_dot(v, n)));
-}
-
-t_col	calc_phong_lighting(t_data *data, t_hit *obj, t_vec view_dir)
-{
-	t_vec	light_dir;
-	double	ambient_ratio = 0.1;
-	double	diffuse_ratio;
-	double	specular_ratio;
-	double	cos_angle;
-	double	specular_exponent = 32.0; // Shininess factor
-	t_col	ambient_color;
-	t_col	diffuse_color;
-	t_col	specular_color;
-	t_col	final_color;
-
-	// Calculate light direction
-	light_dir = vec_norm(vec_sub(data->lights->center, obj->hit_point));
-
-	// Ambient
-	ambient_color = col_scale(obj->color, ambient_ratio);
-
-	// Diffuse
-	cos_angle = max(0.0, vec_dot(obj->normal, light_dir));
-	diffuse_ratio = data->lights->ratio * cos_angle;
-	diffuse_color = col_scale(col_mul(obj->color, data->lights->color), diffuse_ratio);
-
-	// Specular
-	t_vec reflect_dir = reflect(vec_scale(light_dir, -1), obj->normal);
-	double spec = pow(max(0.0, vec_dot(view_dir, reflect_dir)), specular_exponent);
-	specular_ratio = data->lights->ratio * spec;
-	specular_color = col_scale(data->lights->color, specular_ratio);
-
-	// Combine all components
-	final_color = col_add(ambient_color, diffuse_color);
-	final_color = col_add(final_color, specular_color);
-
-	return (final_color);
-}
-
-t_col	calc_test(t_data *data, t_hit *obj, t_vec view_dir)
-{
-	t_col	color;
-
-	color = ambient(obj->color, data->ambient->color, data->ambient->ratio);
-	color = col_add(color, calc_phong_lighting(data, obj, view_dir));
-	color = clamp_color(color);
-	return (color);
-}
-
-t_col	pixel_color(t_data *data, t_ray *ray, t_hit *obj)
-{
-	if (obj->t > 0.0)
-		return (calc_test(data, obj, vec_scale(ray->direction, -1)));
-	else
-		//return ((t_col){0.0, 0.0, 0.0});
-		return (sky_gradient(ray));
-}
-
-t_col	ambient(t_col object_color, t_col ambient_color, double ambient_ratio)
-{
-	return (col_scale(col_mul(object_color, ambient_color), ambient_ratio));
-} */
