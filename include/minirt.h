@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:26:29 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/14 18:40:13 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/14 19:21:53 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,13 @@ typedef struct s_hit
 	t_cylinder	*cylinder;
 	t_vec		cy_axis_point;
 }	t_hit;
+
+typedef struct s_calc_cy
+{
+	t_vec	axis_point;
+	t_ray	*ray;
+	double	t;
+}	t_calc_cy;
 
 // colors
 int		convert_color(t_col col);
