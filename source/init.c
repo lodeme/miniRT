@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 15:50:46 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/14 16:33:42 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/15 15:24:03 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ void	init_scene(t_data *data, char ***scene)
 	if (!data->cylinders)
 		throw_error(data, "Error: malloc() fail\n");
 	data->nb_lights = 0;
+	data->nb_cylinders = 0;
+	data->nb_planes = 0;
+	data->nb_spheres = 0;
 }
 
 t_data	*init_data(char ***scene)
