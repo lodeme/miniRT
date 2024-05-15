@@ -74,7 +74,7 @@ static char	***split_parameters(char *file)
 	int		i;
 
 	split_lines = ft_split(file, '\n');
-	split_properties = malloc(ft_arrlen(split_lines) * sizeof(char **) + 1);
+	split_properties = malloc((ft_arrlen(split_lines) + 1) * sizeof(char **));
 	if (!split_properties)
 		external_free(file, split_lines, "Error: malloc() fail\n");
 	i = -1;
