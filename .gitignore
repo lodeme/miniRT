@@ -9,3 +9,4 @@ obj/source
 minirt
 compile_commands.json
 .vscode/c_cpp_properties.json
+.direnv
