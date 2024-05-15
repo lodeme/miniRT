@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 15:50:46 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/15 15:24:03 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/15 16:37:42 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,12 @@ t_data	*init_data(char ***scene)
 
 void	init_viewport(t_data *data)
 {
-	data->cam->normal = vec_add(data->cam->normal, VEC_EPSILON);
+	data->cam->normal = vec_add(data->cam->normal, (t_vec){EPSILON, EPSILON, EPSILON});
 	data->cam->normal = vec_norm(data->cam->normal);
-	data->vp->vp_width = tan(RADIANS(data->cam->fov / 2.0));
+	//data->vp->vp_width = tan(RADIANS(data->cam->fov / 2.0));
+	data->vp->vp_width = tan((data->cam->fov / 2.0 * PI) / 180.0);
 	data->vp->vp_height = data->vp->vp_width / RATIO;
-	data->vp->right_vec = vec_norm(vec_cross(data->cam->normal, VIEWPORT_UP));
+	data->vp->right_vec = vec_norm(vec_cross(data->cam->normal, (t_vec){0, 1, 0}));
 	data->vp->up_vec = vec_norm(vec_cross(data->cam->normal, \
 								data->vp->right_vec));
 	data->vp->right_vec = vec_norm(vec_cross(data->cam->normal, \
