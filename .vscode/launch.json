@@ -5,7 +5,7 @@
             "name": "Debug with LLDB",
             "type": "lldb",
             "request": "launch",
-            "program": "${workspaceFolder}/minirt",
+            "program": "${workspaceFolder}/miniRT",
             // "args": ["test_files/spheres.rt"],
             "args": ["test_files/one_sphere.rt"],
             "stopAtEntry": false,

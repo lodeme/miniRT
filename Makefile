@@ -1,5 +1,5 @@
-NAME    := minirt
-CFLAGS  := -Wextra -Wall -Werror -Wno-error=unused-result -Wunreachable-code -Ofast -g -O0 -O
+NAME    := miniRT
+CFLAGS  := -Wextra -Wall -Werror -Wunreachable-code -Ofast -g -O0
 LIBFT   := ./libraries/libft
 LIBMLX  := ./libraries/mlx42
 HEADERS := -I ./include -I $(LIBMLX)/include -I $(LIBFT)
