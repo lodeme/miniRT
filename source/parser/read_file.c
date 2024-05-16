@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:27:28 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/05/14 16:56:48 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/15 16:58:16 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char	*read_file(char *str)
 
 	fd = open(str, O_RDONLY);
 	if (fd == -1)
-		quit_parsing("Error: unable to open file");
+		quit_parsing("Error: unable to open file\n");
 	file = strdup("");
 	while (1)
 	{
