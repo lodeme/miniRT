@@ -1,4 +1,4 @@
-NAME    := minirt
+NAME    := miniRT
 CFLAGS  := -Wextra -Wall -Werror -Wunreachable-code -Ofast -g -O0
 LIBFT   := ./libraries/libft
 LIBMLX  := ./libraries/mlx42
