@@ -1,0 +1,14 @@
+# Ambient lighting: Ratio, Color
+A                   0.2    255,255,255
+# Light: Coordinates, Brightness, Color
+L        4,0,-2       1           255,255,255
+# Camera: Coordinates, Direction, FOV
+C         0,0,-3       0,0,1      70
+
+#== 1 ==#
+# Sphere: Coordinates, Diameter, Color
+sp        0,0,0        2         150,100,255
+
+#== 2 ==#
+# Sphere: Coordinates, Diameter, Color
+#sp        0,0,2        2         150,100,255
