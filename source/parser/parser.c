@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:29:19 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/04/25 16:27:33 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:11:55 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 char	***extract_file_content(char **argv)
 {
-	char ***file_content;
+	char	***file_content;
 
 	check_file_extension(argv[1]);
 	file_content = extract_content(argv[1]);
 	return (file_content);
 }
 
-void	parse_scene(t_data *data, char*** scene)
+void	parse_scene(t_data *data, char ***scene)
 {
 	int	i;
 
 	i = -1;
-	while(scene[++i])
+	while (scene[++i])
 	{
 		if (!ft_strcmp(scene[i][0], "A"))
 			parse_ambient(data, scene, i);

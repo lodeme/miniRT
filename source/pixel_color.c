@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pixel.c                                            :+:      :+:    :+:   */
+/*   pixel_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:55:03 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/14 16:20:03 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:46:38 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static t_col	ambient(t_col object_color, t_col ambient_color, double ambient_ratio);
+static t_col	ambient(t_col object_color, t_col ambient_color, \
+											double ambient_ratio);
 static t_col	calc_color(t_data *data, t_hit *obj);
 static t_col	sky_gradient(t_ray *ray);
 static t_col	calc_diffuse_light(t_data *scene_data, t_hit *obj);
-bool	shadow(t_data *data, t_hit *obj);
 
 t_col	pixel_color(t_data *data, t_ray *ray, t_hit *obj)
 {
 	if (obj->t > 0.0)
-		return calc_color(data, obj);
+		return (calc_color(data, obj));
 	else
-		//return ((t_col){0.0, 0.0, 0.0});
-		return sky_gradient(ray);
+		return (sky_gradient(ray));
 }
 
 static t_col	calc_color(t_data *data, t_hit *obj)
@@ -65,30 +64,14 @@ static t_col	calc_diffuse_light(t_data *scene_data, t_hit *obj)
 	light_direction = vec_sub(scene_data->lights->center, obj->hit_point);
 	light_attenuation = min(1.0, 90.0 / vec_length(light_direction));
 	angle_cosine = vec_cos(obj->normal, light_direction);
-	diffuse_light_intensity = scene_data->lights->ratio * angle_cosine * light_attenuation;
+	diffuse_light_intensity = scene_data->lights->ratio * angle_cosine \
+								* light_attenuation;
 	diffuse_color = col_scale(obj->color, diffuse_light_intensity);
 	return (diffuse_color);
 }
 
-static t_col	ambient(t_col object_color, t_col ambient_color, double ambient_ratio)
+static t_col	ambient(t_col object_color, t_col ambient_color, \
+						double ambient_ratio)
 {
 	return (col_scale(col_mul(object_color, ambient_color), ambient_ratio));
-}
-
-bool	shadow(t_data *data, t_hit *obj)
-{
-	t_ray	shadow_ray;
-	t_hit	shadow_obj;
-	int		i;
-
-	i = -1;
-	while (++i < data->nb_lights)
-	{
-		shadow_ray.origin = obj->hit_point;
-		shadow_ray.direction = vec_norm(vec_sub(data->lights[i].center, obj->hit_point));
-		shadow_obj = closest_obj(data, &shadow_ray);
-		if (shadow_obj.t > 0.0 && shadow_obj.t < vec_length(vec_sub(data->lights[i].center, obj->hit_point)))
-			return (true);
-	}
-	return (false);
 }

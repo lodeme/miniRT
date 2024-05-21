@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 13:21:15 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/05/13 22:19:38 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:55:38 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void	get_closest_sphere(t_data *data, t_ray *ray, t_hit *closest);
 static void	get_closest_plane(t_data *data, t_ray *ray, t_hit *closest);
 static void	get_closest_cylinder(t_data *data, t_ray *ray, t_hit *closest);
 static void	get_the_closest(t_ray *ray, t_hit *closest);
-t_vec	cylinder_normal(t_hit *closest, t_ray *ray);
 
 t_hit	closest_obj(t_data *data, t_ray *ray)
 {
@@ -91,10 +90,12 @@ static void	get_the_closest(t_ray *ray, t_hit *closest)
 		closest->type = "none";
 		closest->t = -1;
 	}
-	closest->hit_point = vec_add(ray->origin, vec_scale(ray->direction, closest->t));
+	closest->hit_point = vec_add(ray->origin, \
+						vec_scale(ray->direction, closest->t));
 	if (!ft_strcmp(closest->type, "sphere"))
 	{
-		closest->normal = vec_norm(vec_sub(closest->hit_point, closest->sphere->center));
+		closest->normal = vec_norm(vec_sub(closest->hit_point, \
+							closest->sphere->center));
 		closest->color = closest->sphere->color;
 	}
 	else if (!ft_strcmp(closest->type, "plane"))
@@ -107,18 +108,4 @@ static void	get_the_closest(t_ray *ray, t_hit *closest)
 		closest->normal = cylinder_normal(closest, ray);
 		closest->color = closest->cylinder->color;
 	}
-}
-
-t_vec	cylinder_normal(t_hit *closest, t_ray *ray)
-{
-	t_vec	point;
-	t_vec	normal;
-
-	point = vec_at(closest->t, ray);
-	normal = vec_sub(point, closest->cy_axis_point);
-	if (vec_compare(closest->cy_axis_point, closest->cylinder->cap1))
-		normal = vec_scale(closest->cylinder->normal, -1);
-	else if (vec_compare(closest->cy_axis_point, closest->cylinder->cap2))
-		normal = closest->cylinder->normal;
-	return (normal);
 }

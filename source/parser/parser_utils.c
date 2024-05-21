@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:14:10 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/05/01 13:04:19 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:09:51 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,23 @@ void	check_file_extension(char *str)
 
 char	*is_obj(char *str)
 {
-	if(!ft_strcmp(str, "A"))
-		return("A");
+	if (!ft_strcmp(str, "A"))
+		return ("A");
 	else if (!ft_strcmp(str, "C"))
-		return("C");
+		return ("C");
 	else if (!ft_strcmp(str, "L"))
-		return("L");
+		return ("L");
 	else if (!ft_strcmp(str, "sp"))
-		return("sp");
+		return ("sp");
 	else if (!ft_strcmp(str, "pl"))
-		return("pl");
+		return ("pl");
 	else if (!ft_strcmp(str, "cy"))
-		return("cy");
+		return ("cy");
 	else
-	 return ("error");
+		return ("error");
 }
 
-int	count_obj(char*** scene, char	*str)
+int	count_obj(char ***scene, char	*str)
 {
 	int	i;
 	int	count;

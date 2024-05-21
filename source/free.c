@@ -16,10 +16,10 @@ void	free_data(t_data *data)
 {
 	if (data)
 	{
-		if (data->win)
-			free(data->win);
 		if (data->img)
-			free(data->img);
+			mlx_delete_image(data->win, data->img);
+		if (data->win)
+			mlx_terminate(data->win);
 		if (data->cam)
 			free(data->cam);
 		if (data->vp)

@@ -6,7 +6,7 @@
 /*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:26:06 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/14 16:13:13 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:55:43 by ubazzane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ double	hit_sphere(t_sphere sp, t_ray *ray)
 {
 	t_vec		oc;
 	t_equation	eq;
-	double	discriminant;
+	double		discriminant;
 
 	oc = vec_sub(ray->origin, sp.center);
 	eq.a = vec_dot(ray->direction, ray->direction);
@@ -51,7 +51,7 @@ double	hit_plane(t_plane pl, t_ray *ray)
 	d_dot_v = vec_dot(ray->direction, pl.normal);
 	x_dot_v = vec_dot(oc, pl.normal);
 	if (d_dot_v != 0.0 && ((d_dot_v > 0 && x_dot_v < 0)
-		|| (d_dot_v < 0 && x_dot_v > 0)))
+			|| (d_dot_v < 0 && x_dot_v > 0)))
 	{
 		t = -x_dot_v / d_dot_v;
 		if (t > EPSILON)
@@ -75,4 +75,18 @@ t_ray	create_ray(t_data *data, t_vec pixel)
 	ray.origin = data->cam->center;
 	ray.direction = vec_norm(vec_sub(unnormalized_direction, ray.origin));
 	return (ray);
+}
+
+t_vec	cylinder_normal(t_hit *closest, t_ray *ray)
+{
+	t_vec	point;
+	t_vec	normal;
+
+	point = vec_at(closest->t, ray);
+	normal = vec_sub(point, closest->cy_axis_point);
+	if (vec_compare(closest->cy_axis_point, closest->cylinder->cap1))
+		normal = vec_scale(closest->cylinder->normal, -1);
+	else if (vec_compare(closest->cy_axis_point, closest->cylinder->cap2))
+		normal = closest->cylinder->normal;
+	return (normal);
 }

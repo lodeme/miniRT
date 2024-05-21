@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:27:28 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/05/03 13:20:31 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/15 16:58:16 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char	*read_file(char *str)
 
 	fd = open(str, O_RDONLY);
 	if (fd == -1)
-		quit_parsing("Error: unable to open file");
+		quit_parsing("Error: unable to open file\n");
 	file = strdup("");
 	while (1)
 	{
@@ -56,7 +56,7 @@ static char	*read_file(char *str)
 
 static void	append_line(char *line, char **file)
 {
-	char *temp;
+	char	*temp;
 
 	if (ft_strncmp(line, "\n", 1) && ft_strncmp(line, "#", 1))
 	{
@@ -74,7 +74,7 @@ static char	***split_parameters(char *file)
 	int		i;
 
 	split_lines = ft_split(file, '\n');
-	split_properties = malloc(ft_arrlen(split_lines) * sizeof(char **) + 1);
+	split_properties = malloc((ft_arrlen(split_lines) + 1) * sizeof(char **));
 	if (!split_properties)
 		external_free(file, split_lines, "Error: malloc() fail\n");
 	i = -1;

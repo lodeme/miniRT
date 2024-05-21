@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 15:50:46 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/14 16:18:24 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/21 12:51:03 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ void	init_scene(t_data *data, char ***scene)
 	if (!data->cylinders)
 		throw_error(data, "Error: malloc() fail\n");
 	data->nb_lights = 0;
+	data->nb_cylinders = 0;
+	data->nb_planes = 0;
+	data->nb_spheres = 0;
 }
 
 t_data	*init_data(char ***scene)
@@ -64,13 +67,17 @@ t_data	*init_data(char ***scene)
 
 void	init_viewport(t_data *data)
 {
-	data->cam->normal = vec_add(data->cam->normal, VEC_EPSILON);
+	data->cam->normal = vec_add(data->cam->normal, \
+										(t_vec){EPSILON, EPSILON, EPSILON});
 	data->cam->normal = vec_norm(data->cam->normal);
-	data->vp->vp_width = tan(RADIANS(data->cam->fov / 2.0));
+	data->vp->vp_width = tan((data->cam->fov / 2.0 * PI) / 180.0);
 	data->vp->vp_height = data->vp->vp_width / RATIO;
-	data->vp->right_vec = vec_norm(vec_cross(data->cam->normal, VIEWPORT_UP));
-	data->vp->up_vec = vec_norm(vec_cross(data->cam->normal, data->vp->right_vec));
-	data->vp->right_vec = vec_norm(vec_cross(data->cam->normal, data->vp->up_vec));
+	data->vp->right_vec = vec_norm(vec_cross(data->cam->normal, \
+														(t_vec){0, 1, 0}));
+	data->vp->up_vec = vec_norm(vec_cross(data->cam->normal, \
+								data->vp->right_vec));
+	data->vp->right_vec = vec_norm(vec_cross(data->cam->normal, \
+									data->vp->up_vec));
 }
 
 /**
