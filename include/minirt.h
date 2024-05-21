@@ -6,7 +6,7 @@
 /*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:26:29 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/21 12:46:59 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/05/21 12:51:14 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ double	min(double a, double b);
 // pixel operations
 t_col	pixel_color(t_data *data, t_ray *ray, t_hit *obj);
 bool	shadow(t_data *data, t_hit *obj);
-void	put_pixel(mlx_image_t* image, uint32_t x, uint32_t y, uint32_t color);
+void	put_pixel(mlx_image_t *image, uint32_t x, uint32_t y, uint32_t color);
 
 // intersections
 double	hit_sphere(t_sphere sp, t_ray *ray);

@@ -6,7 +6,7 @@
 /*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 16:48:09 by ubazzane          #+#    #+#             */
-/*   Updated: 2024/05/21 12:43:39 by lodemetz         ###   ########.fr       */
+/*   Updated: 2024/05/21 12:50:28 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,11 @@ double	min(double a, double b)
 	return (b);
 }
 
-void put_pixel(mlx_image_t* image, uint32_t x, uint32_t y, uint32_t color)
+void	put_pixel(mlx_image_t *image, uint32_t x, uint32_t y, uint32_t color)
 {
-	uint8_t* pixel = &image->pixels[(y * image->width + x) * sizeof(int32_t)];
+	uint8_t	*pixel;
+
+	pixel = &image->pixels[(y * image->width + x) * sizeof(int32_t)];
 	*(pixel++) = (uint8_t)(color >> 24);
 	*(pixel++) = (uint8_t)(color >> 16);
 	*(pixel++) = (uint8_t)(color >> 8);
