@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubazzane <ubazzane@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lodemetz <lodemetz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 16:52:15 by lodemetz          #+#    #+#             */
-/*   Updated: 2024/05/14 16:33:54 by ubazzane         ###   ########.fr       */
+/*   Updated: 2024/05/21 12:47:31 by lodemetz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	minirt(t_data *data)
 			ray = create_ray(data, pixels_to_viewport(x_index, y_index));
 			obj = closest_obj(data, &ray);
 			color = convert_color(pixel_color(data, &ray, &obj));
-			mlx_put_pixel(data->img, x_index, y_index, color);
+			put_pixel(data->img, x_index, y_index, color);
 		}
 	}
 	return (SUCCESS);
